@@ -11,7 +11,7 @@ class IndexController extends Action {
 	public function Cadastro() {
 		$cadastro = Container::getModel('Usuario');
 		$this->view->usuarios = $cadastro->getAll();
-		$this->render('Usuarios');
+		$this->render('Cadastro');
 	}
 }
 

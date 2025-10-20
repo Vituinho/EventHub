@@ -10,20 +10,10 @@ abstract class Action {
 		$this->view = new \stdClass();
 	}
 
-	protected function render($view, $layout = 'layout') {
-    $this->view->page = $view;
-
-    if(file_exists("../App/Views/".$layout.".phtml")) {
-        require_once "../App/Views/".$layout.".phtml";
-    } else {
-        $this->content();
+	protected function render($view) {
+        $this->view->page = $view;
+        require_once "../App/Views/" . $this->view->page . ".phtml";
     }
-}
-
-protected function content() {
-    // Aqui, pega direto da pasta Views
-    require_once "../App/Views/".$this->view->page.".phtml";
-}
 
 }
 
