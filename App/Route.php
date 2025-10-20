@@ -13,6 +13,12 @@ class Route extends Bootstrap {
 			'controller' => 'IndexController',
 			'action' => 'Cadastro'
 		);
+
+		$routes['login'] = array(
+			'route' => '/login',
+			'controller' => 'IndexController',
+			'action' => 'Login'
+		);
 		
 		$this->setRoutes($routes);
 	}
