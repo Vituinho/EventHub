@@ -23,24 +23,30 @@
 <div class="card card-register">
     <div class="card-header">
         <h5 class="mb-0">Criar conta</h5>
-        <small>Preencha os campos para se Logar-se</small>
+        <small>Preencha os campos para se Cadastrar</small>
     </div>
 
     <div class="card-body">
-        <div id="alertArea" class="alert-area mb-3" aria-live="polite"></div>
+        <div class="alert-area mb-3" aria-live="polite"></div>
 
-        <form id="registerForm" action="{{ route('usuarios.store') }}" method="POST" novalidate>
+        <form action="/usuario/salvar" method="POST" novalidate>
 
             <div class="mb-3">
-                <label for="inputEmail" class="form-label">E-mail</label>
-                <input type="email" name="email" class="form-control" id="inputEmail" required placeholder="seu@exemplo.com" />
+                <label class="form-label">Nome</label>
+                <input type="input" name="nome" class="form-control" required placeholder="Nome" />
                 <div class="invalid-feedback">Informe um e-mail válido.</div>
             </div>
 
             <div class="mb-3">
-                <label for="inputPassword" class="form-label">Senha</label>
+                <label class="form-label">E-mail</label>
+                <input type="email" name="email" class="form-control" required placeholder="seu@exemplo.com" />
+                <div class="invalid-feedback">Informe um e-mail válido.</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
                 <div class="input-group">
-                    <input type="password" name="password" class="form-control" id="inputPassword" required minlength="6" placeholder="Senha" />
+                    <input type="password" name="password" class="form-control" required minlength="6" placeholder="Senha" />
                     <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
                     <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
                 </div>

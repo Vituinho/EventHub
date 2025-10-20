@@ -10,6 +10,7 @@ class IndexController extends Action {
 
 	public function Cadastro() {
 		$cadastro = Container::getModel('Usuario');
+		$this->view->usuarios = $cadastro->getAll();
 		$this->render('Cadastro');
 	}
 
@@ -17,6 +18,10 @@ class IndexController extends Action {
 		$cadastro = Container::getModel('Usuario');
 		$this->view->usuarios = $cadastro->getAll();
 		$this->render('Login');
+	}
+
+	public function NovoUsuario() {
+		$this->render('novo_usuario');
 	}
 }
 
