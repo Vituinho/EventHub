@@ -1,0 +1,22 @@
+<h2>Lista de Usuários</h2>
+<a href="/usuario/novo" class="btn btn-success mb-3">Novo Usuário</a>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th><th>Nome</th><th>Email</th><th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($this->view->usuarios as $usuario): ?>
+      <tr>
+        <td><?= $usuario['id'] ?></td>
+        <td><?= $usuario['nome'] ?></td>
+        <td><?= $usuario['email'] ?></td>
+        <td>
+          <a href="/usuario/editar?id=<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">Editar</a>
+          <a href="/usuario/excluir?id=<?= $usuario['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir este usuário?')" class="btn btn-danger btn-sm">Excluir</a>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>

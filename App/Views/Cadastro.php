@@ -1,0 +1,63 @@
+<?php
+
+
+
+
+?>
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logar-se — Avaliador de Senha</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS do projeto -->
+    <link rel="stylesheet" href="{{ asset('') }}">
+</head>
+<body>
+
+<div class="card card-register">
+    <div class="card-header">
+        <h5 class="mb-0">Criar conta</h5>
+        <small>Preencha os campos para se Logar-se</small>
+    </div>
+
+    <div class="card-body">
+        <div id="alertArea" class="alert-area mb-3" aria-live="polite"></div>
+
+        <form id="registerForm" action="{{ route('usuarios.store') }}" method="POST" novalidate>
+
+            <div class="mb-3">
+                <label for="inputEmail" class="form-label">E-mail</label>
+                <input type="email" name="email" class="form-control" id="inputEmail" required placeholder="seu@exemplo.com" />
+                <div class="invalid-feedback">Informe um e-mail válido.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="inputPassword" class="form-label">Senha</label>
+                <div class="input-group">
+                    <input type="password" name="password" class="form-control" id="inputPassword" required minlength="6" placeholder="Senha" />
+                    <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
+                    <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
+                </div>
+
+            <button type="submit" class="btn btn-Primary" id="submitBtn">Logar-se</button>
+        </form>
+
+        <div class="mt-3 text-center small">
+            Já tem conta? <a href="login.html">Entrar</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS do projeto -->
+<script src="{{ asset('') }}"></script>
+</body>
+</html>
