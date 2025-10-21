@@ -1,0 +1,126 @@
+<?php
+
+?>
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logar-se — Sistema de Eventos</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">🎉 Eventos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="cadastro.php">Cadastrar Evento</a></li>
+          <li class="nav-item"><a class="nav-link" href="sobre.php">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-5 text-center bg-light">
+    <div class="container">
+      <h1 class="display-4">Bem-vindo ao Sistema de Eventos!</h1>
+      <p class="lead">Cadastre e acompanhe seus eventos de forma rápida e prática.</p>
+      <a href="cadastro.php" class="btn btn-primary btn-lg">Cadastrar Evento</a>
+    </div>
+  </section>
+
+  <!-- Carousel de eventos -->
+  <section class="py-5 bg-secondary text-white">
+    <div class="container">
+      <h2 class="mb-4 text-center">Destaques dos Eventos</h2>
+      <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="img/apresentacao.jpg" class="d-block w-100" alt="Evento 1">
+          </div>
+          <div class="carousel-item">
+            <img src="img/balada.jpg" class="d-block w-100" alt="Evento 2">
+          </div>
+          <div class="carousel-item">
+            <img src="img/casamento.jpg" class="d-block w-100" alt="Evento 3">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselEventos" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Próximos Eventos com cards -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="mb-4">Próximos Eventos</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Card de evento -->
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/palestra.jpg" class="card-img-top" alt="Festa de Aniversário">
+            <div class="card-body">
+              <h5 class="card-title">Festa de Aniversário</h5>
+              <p class="card-text">Data: 25/10/2025</p>
+              <p class="card-text">Local: Salão de Festas XYZ</p>
+              <a href="#" class="btn btn-success">Detalhes</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100">
+            <img src="/img/reuniao.jpg" class="card-img-top" alt="Workshop de Programação">
+            <div class="card-body">
+              <h5 class="card-title">Workshop de Programação</h5>
+              <p class="card-text">Data: 28/10/2025</p>
+              <p class="card-text">Local: Centro de Convenções</p>
+              <a href="#" class="btn btn-success">Detalhes</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100">
+            <img src="img/show.jpg" class="card-img-top" alt="Palestra de Marketing">
+            <div class="card-body">
+              <h5 class="card-title">Palestra de Marketing</h5>
+              <p class="card-text">Data: 30/10/2025</p>
+              <p class="card-text">Local: Auditório ABC</p>
+              <a href="#" class="btn btn-success">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    © 2025 Meu Sistema de Eventos
+  </footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

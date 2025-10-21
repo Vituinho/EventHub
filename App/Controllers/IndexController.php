@@ -20,6 +20,12 @@ class IndexController extends Action {
 		$this->render('Login');
 	}
 
+	public function Home() {
+		$login = Container::getModel('Usuario');
+		$this->view->usuarios = $login->getAll();
+		$this->render('Home');
+	}
+
 	public function NovoUsuario() {
 		$cadastro = Container::getModel('Usuario');
 

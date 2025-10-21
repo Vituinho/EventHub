@@ -20,11 +20,19 @@ class Route extends Bootstrap {
 			'action' => 'Login'
 		);
 
+		$routes['home'] = array(
+			'route' => '/home',
+			'controller' => 'IndexController',
+			'action' => 'Home'
+		);
+
 		$routes['novoUsuario'] = array(
 			'route' => '/usuario/salvar',
 			'controller' => 'IndexController',
 			'action' => 'NovoUsuario'
 		);
+
+
 		
 		$this->setRoutes($routes);
 	}
