@@ -7,11 +7,63 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Logar-se — Sistema de Eventos</title>
+    <title>Home — Sistema de Eventos</title>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+  <style>
+  /* Faz todas as imagens do carrossel terem o mesmo tamanho */
+  .carousel-item img {
+    height: 350px; /* altura fixa — pode ajustar para 300, 400 etc */
+    object-fit: cover; /* corta as bordas mantendo proporção */
+    border-radius: 10px; /* opcional: deixa as bordas arredondadas */
+  }
+
+  /* Deixa o carrossel mais compacto */
+  #carouselEventos {
+    max-width: 1000px; /* largura máxima */
+    margin: 0 auto; /* centraliza na tela */
+  }
+
+  /* Opcional: reduz o espaçamento superior e inferior da seção */
+  section.py-5.text-white {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* ====== IMAGENS DENTRO DOS CARDS ====== */
+  /* Alvo principal: imagens com a classe padrão do Bootstrap */
+  .card-img-top,
+  .card img {
+    width: 100%;           /* ocupa toda largura do card */
+    height: 180px;         /* altura fixa para padronizar (ajuste se quiser) */
+    object-fit: cover;     /* evita distorção, corta onde necessário */
+    border-top-left-radius: .5rem;   /* mantém cantos arredondados do card */
+    border-top-right-radius: .5rem;
+    display: block;
+  }
+
+  /* Se você usa cards com tamanhos variados (colunas diferentes),
+     garanta que o conteúdo do card fique com mesma altura usando flex */
+  .card.h-100 {
+    display: flex;
+    flex-direction: column;
+  }
+  .card.h-100 .card-body {
+    flex: 1 1 auto; /* body ocupa o espaço sobrando */
+  }
+
+  /* ====== VARIANTES RÁPIDAS ====== */
+  /* Banner mais alto nos cards */
+  /* .card-img-top { height: 220px; } */
+
+  /* Imagem quadrada nos cards */
+  /* .card-img-top { height: 180px; object-fit: cover; } */
+</style>
+
+
 <body>
 
     <!-- Navbar -->
@@ -24,8 +76,8 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="cadastro.php">Cadastrar Evento</a></li>
-          <li class="nav-item"><a class="nav-link" href="sobre.php">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cadastro">Cadastrar Evento</a></li>
+          <li class="nav-item"><a class="nav-link" href="/sobre">Sobre</a></li>
         </ul>
       </div>
     </div>
@@ -35,13 +87,13 @@
   <section class="py-5 text-center bg-light">
     <div class="container">
       <h1 class="display-4">Bem-vindo ao Sistema de Eventos!</h1>
-      <p class="lead">Cadastre e acompanhe seus eventos de forma rápida e prática.</p>
-      <a href="cadastro.php" class="btn btn-primary btn-lg">Cadastrar Evento</a>
+      <p class="lead">Cadastre e acompanhe eventos de forma rápida e prática.</p>
+      <a href="/cadastro" class="btn btn-primary btn-lg">Cadastrar Evento</a>
     </div>
   </section>
 
   <!-- Carousel de eventos -->
-  <section class="py-5 bg-secondary text-white">
+  <section class="py-5 text-white">
     <div class="container">
       <h2 class="mb-4 text-center">Destaques dos Eventos</h2>
       <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
@@ -76,11 +128,11 @@
         <!-- Card de evento -->
         <div class="col">
           <div class="card h-100">
-            <img src="img/palestra.jpg" class="card-img-top" alt="Festa de Aniversário">
+            <img src="img/palestra.jpg" class="card-img-top" alt="Palestra">
             <div class="card-body">
-              <h5 class="card-title">Festa de Aniversário</h5>
+              <h5 class="card-title">Palestra</h5>
               <p class="card-text">Data: 25/10/2025</p>
-              <p class="card-text">Local: Salão de Festas XYZ</p>
+              <p class="card-text">Local: Salão dos Idosos</p>
               <a href="#" class="btn btn-success">Detalhes</a>
             </div>
           </div>
@@ -88,11 +140,11 @@
 
         <div class="col">
           <div class="card h-100">
-            <img src="/img/reuniao.jpg" class="card-img-top" alt="Workshop de Programação">
+            <img src="/img/reuniao.jpg" class="card-img-top" alt="Reunião">
             <div class="card-body">
-              <h5 class="card-title">Workshop de Programação</h5>
+              <h5 class="card-title">Reunião</h5>
               <p class="card-text">Data: 28/10/2025</p>
-              <p class="card-text">Local: Centro de Convenções</p>
+              <p class="card-text">Local: UniGazin</p>
               <a href="#" class="btn btn-success">Detalhes</a>
             </div>
           </div>
@@ -100,11 +152,11 @@
 
         <div class="col">
           <div class="card h-100">
-            <img src="img/show.jpg" class="card-img-top" alt="Palestra de Marketing">
+            <img src="img/show.jpg" class="card-img-top" alt="Show">
             <div class="card-body">
-              <h5 class="card-title">Palestra de Marketing</h5>
+              <h5 class="card-title">Show</h5>
               <p class="card-text">Data: 30/10/2025</p>
-              <p class="card-text">Local: Auditório ABC</p>
+              <p class="card-text">Local: Expo</p>
               <a href="#" class="btn btn-success">Detalhes</a>
             </div>
           </div>
