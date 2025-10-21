@@ -29,14 +29,18 @@ class IndexController extends Action {
 	public function NovoUsuario() {
 		$cadastro = Container::getModel('Usuario');
 
-		// Recebe os dados
-
 		$cadastro->__set('nome', $_POST['nome']);
 		$cadastro->__set('email', $_POST['email']);
 		$cadastro->__set('senha', $_POST['senha']);
 
 		$cadastro->salvar();
 		$this->render('Login');
+	}
+
+	public function CadastroEventos() {
+		$cadastro_eventos = Container::getModel('Usuario');
+		$this->view->usuarios = $cadastro_eventos->getAll();
+		$this->render('cadastro_eventos');
 	}
 }
 

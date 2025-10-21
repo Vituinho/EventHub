@@ -32,8 +32,18 @@ class Route extends Bootstrap {
 			'action' => 'NovoUsuario'
 		);
 
+		$routes['cadastro_eventos'] = array(
+			'route' => '/eventos/cadastrar',
+			'controller' => 'IndexController',
+			'action' => 'CadastroEventos'
+		);
 
-		
+		$routes['sobre'] = array(
+			'route' => '/eventos/sobre',
+			'controller' => 'IndexController',
+			'action' => 'Sobre'
+		);
+
 		$this->setRoutes($routes);
 	}
 
