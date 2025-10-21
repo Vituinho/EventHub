@@ -11,17 +11,26 @@ class IndexController extends Action {
 	public function Cadastro() {
 		$cadastro = Container::getModel('Usuario');
 		$this->view->usuarios = $cadastro->getAll();
-		$this->render('Cadastro');
+		$this->render('cadastro');
 	}
 
 	public function Login() {
-		$cadastro = Container::getModel('Usuario');
-		$this->view->usuarios = $cadastro->getAll();
+		$login = Container::getModel('Usuario');
+		$this->view->usuarios = $login->getAll();
 		$this->render('Login');
 	}
 
 	public function NovoUsuario() {
-		$this->render('novo_usuario');
+		$cadastro = Container::getModel('Usuario');
+
+		// Recebe os dados
+
+		$cadastro->__set('nome', $_POST['nome']);
+		$cadastro->__set('email', $_POST['email']);
+		$cadastro->__set('senha', $_POST['senha']);
+
+		$cadastro->salvar();
+		$this->render('Login');
 	}
 }
 
