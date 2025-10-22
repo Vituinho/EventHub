@@ -9,13 +9,13 @@ class Route extends Bootstrap {
 	protected function initRoutes() {
 
 		$routes['cadastro'] = array(
-			'route' => '/',
+			'route' => '/cadastro',
 			'controller' => 'IndexController',
 			'action' => 'Cadastro'
 		);
 
 		$routes['login'] = array(
-			'route' => '/login',
+			'route' => '/',
 			'controller' => 'IndexController',
 			'action' => 'Login'
 		);
