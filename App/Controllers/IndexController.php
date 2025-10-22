@@ -29,6 +29,7 @@ class IndexController extends Action {
 	public function NovoUsuario() {
 		$cadastro = Container::getModel('Usuario');
 
+		$cadastro->__set('id_usuario', $_POST['id_usuario']);
 		$cadastro->__set('nome', $_POST['nome']);
 		$cadastro->__set('email', $_POST['email']);
 		$cadastro->__set('senha', $_POST['senha']);
@@ -45,27 +46,28 @@ class IndexController extends Action {
 
 	public function autenticar() {
 		$usuario = Container::getModel('Usuario');
+		$usuario->__set('id_usuario', $_POST['id_usuario']);
         $usuario->__set('email', $_POST['email']);
         $usuario->__set('senha', $_POST['senha']);
 
         $usuario_autenticado = $usuario->autenticar();
 
-        if ($usuario_autenticado && $usuario_autenticado->__get('id') != '') {
+        if ($usuario_autenticado && $usuario_autenticado->__get('id_usuario') != '') {
             session_start();
-            $_SESSION['id'] = $usuario_autenticado->__get('id');
+            $_SESSION['id_usuario'] = $usuario_autenticado->__get('id_usuario');
             $_SESSION['nome'] = $usuario_autenticado->__get('nome');
             $_SESSION['email'] = $usuario_autenticado->__get('email');
 
             header('Location: /home');
         } else {
-            header('Location: /login');
+            header('Location: /');
         }
     }
 
 	public function logout() {
         session_start();
         session_destroy();
-        header('Location: /login');
+        header('Location: /');
     }
 }
 

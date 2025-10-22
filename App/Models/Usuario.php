@@ -27,17 +27,17 @@ class Usuario extends Model {
     }
 
     public function getById($id) {
-        $query = "SELECT * FROM usuarios WHERE id = :id";
+        $query = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':id_usuario', $id);
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function atualizar() {
-        $query = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha WHERE id = :id";
+        $query = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id', $this->__get('id'));
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':email', $this->__get('email'));
         $stmt->bindValue(':senha', $this->__get('senha'));
@@ -45,9 +45,9 @@ class Usuario extends Model {
     }
 
     public function excluir($id) {
-        $query = "DELETE FROM usuarios WHERE id = :id";
+        $query = "DELETE FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':id_usuario', $id);
         $stmt->execute();
     }
 
@@ -63,7 +63,7 @@ class Usuario extends Model {
     }
 
     public function autenticar() {
-        $query = "SELECT id, nome, email, senha FROM usuarios WHERE email = :email";
+        $query = "SELECT id_usuario, nome, email, senha FROM usuarios WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':email', $this->__get('email'));
         $stmt->execute();
@@ -71,7 +71,7 @@ class Usuario extends Model {
         $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($usuario && password_verify($this->__get('senha'), $usuario['senha'])) {
-            $this->__set('id', $usuario['id']);
+            $this->__set('id_usuario', $usuario['id_usuario']);
             $this->__set('nome', $usuario['nome']);
             $this->__set('email', $usuario['email']);
             return $this; // retorna o usuário autenticado
