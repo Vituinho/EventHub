@@ -42,6 +42,31 @@ class IndexController extends Action {
 		$this->view->usuarios = $cadastro_eventos->getAll();
 		$this->render('cadastro_eventos');
 	}
+
+	public function autenticar() {
+		$usuario = Container::getModel('Usuario');
+        $usuario->__set('email', $_POST['email']);
+        $usuario->__set('senha', $_POST['senha']);
+
+        $usuario_autenticado = $usuario->autenticar();
+
+        if ($usuario_autenticado && $usuario_autenticado->__get('id') != '') {
+            session_start();
+            $_SESSION['id'] = $usuario_autenticado->__get('id');
+            $_SESSION['nome'] = $usuario_autenticado->__get('nome');
+            $_SESSION['email'] = $usuario_autenticado->__get('email');
+
+            header('Location: /home');
+        } else {
+            header('Location: /login');
+        }
+    }
+
+	public function logout() {
+        session_start();
+        session_destroy();
+        header('Location: /login');
+    }
 }
 
 
