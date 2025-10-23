@@ -35,7 +35,13 @@ class LoginController extends Action {
 
 		$senha = $_POST['senha'];
 
-		
+		if(strlen($senha) < 8) {
+			header('Location: /cadastro?erro=1');
+			exit;
+		} else {
+			$usuario->salvar();
+			$this->render('Login');
+		}
 
 	}
 

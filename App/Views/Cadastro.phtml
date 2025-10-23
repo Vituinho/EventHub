@@ -40,7 +40,14 @@
                         </div>
                     <?php endif; ?>
 
-                    
+                    <?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="alert alert-danger w-100 d-flex justify-content-center align-items-center" role="alert">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                Senha está com menos de 8 caracteres!
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="mb-3">
                         <label class="form-label">Nome</label>
