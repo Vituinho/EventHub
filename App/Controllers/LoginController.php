@@ -53,7 +53,7 @@ class LoginController extends Action {
 
             header('Location: /home');
         } else {
-            header('Location: /');
+            header('Location: /?erro=1');
         }
     }
 

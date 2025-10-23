@@ -17,42 +17,46 @@
 </head>
 <body>
 
-<div class="card card-register">
-    <div class="card-header">
-        <h5 class="mb-0">Criar conta</h5>
-        <small>Preencha os campos para se Cadastrar</small>
-    </div>
-
-    <div class="card-body">
-        <div class="alert-area mb-3" aria-live="polite"></div>
-
-        <form action="/usuario/salvar" method="POST" novalidate>
-
-            <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="input" name="nome" class="form-control" required placeholder="Nome" />
-                <div class="invalid-feedback">Informe um e-mail válido.</div>
+<div class="container mt-5">
+    <div class="col">
+        <div class="card card-register">
+            <div class="card-header">
+                <h5 class="mb-0">Criar conta</h5>
+                <small>Preencha os campos para se Cadastrar</small>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">E-mail</label>
-                <input type="email" name="email" class="form-control" required placeholder="seu@exemplo.com" />
-                <div class="invalid-feedback">Informe um e-mail válido.</div>
-            </div>
+            <div class="card-body">
+                <div class="alert-area mb-3" aria-live="polite"></div>
 
-            <div class="mb-3">
-                <label class="form-label">Senha</label>
-                <div class="input-group">
-                    <input type="password" name="senha" class="form-control" required minlength="6" placeholder="Senha" />
-                    <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
-                    <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
+                <form action="/usuario/salvar" method="POST" novalidate>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome</label>
+                        <input type="input" name="nome" class="form-control" required placeholder="Nome" />
+                        <div class="invalid-feedback">Informe um e-mail válido.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" name="email" class="form-control" required placeholder="seu@exemplo.com" />
+                        <div class="invalid-feedback">Informe um e-mail válido.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Senha</label>
+                        <div class="input-group">
+                            <input type="password" name="senha" class="form-control" required minlength="6" placeholder="Senha" />
+                            <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
+                            <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
+                        </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Cadastrar-se</button>
+                </form>
+
+                <div class="mt-3 text-center small">
+                    Já tem conta? <a href="/">Entrar</a>
                 </div>
-
-            <button type="submit" class="btn btn-primary mt-3">Cadastrar-se</button>
-        </form>
-
-        <div class="mt-3 text-center small">
-            Já tem conta? <a href="/">Entrar</a>
+            </div>
         </div>
     </div>
 </div>
