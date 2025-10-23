@@ -10,41 +10,41 @@ class Route extends Bootstrap {
 
 		$routes['cadastro'] = array(
 			'route' => '/cadastro',
-			'controller' => 'IndexController',
+			'controller' => 'LoginController',
 			'action' => 'Cadastro'
 		);
 
 		$routes['login'] = array(
 			'route' => '/',
-			'controller' => 'IndexController',
+			'controller' => 'LoginController',
 			'action' => 'Login'
 		);
 
 		$routes['home'] = array(
 			'route' => '/home',
-			'controller' => 'IndexController',
+			'controller' => 'LoginController',
 			'action' => 'Home'
 		);
 
 		$routes['novoUsuario'] = array(
 			'route' => '/usuario/salvar',
-			'controller' => 'IndexController',
+			'controller' => 'LoginController',
 			'action' => 'NovoUsuario'
 		);
 
 		$routes['cadastro_eventos'] = array(
 			'route' => '/eventos/cadastrar',
-			'controller' => 'IndexController',
+			'controller' => 'EventosController',
 			'action' => 'CadastroEventos'
 		);
 
 		$routes['sobre'] = array(
 			'route' => '/eventos/sobre',
-			'controller' => 'IndexController',
+			'controller' => 'LoginController',
 			'action' => 'Sobre'
 		);
 
-		$routes['sobre'] = array(
+		$routes['autenticar'] = array(
 			'route' => '/login/autenticar',
 			'controller' => 'IndexController',
 			'action' => 'autenticar'

@@ -6,7 +6,7 @@ namespace App\Controllers;
 use MF\Controller\Action;
 use MF\Model\Container;
 
-class IndexController extends Action {
+class LoginController extends Action {
 
 	public function Cadastro() {
 		$cadastro = Container::getModel('Usuario');
@@ -35,12 +35,6 @@ class IndexController extends Action {
 
 		$cadastro->salvar();
 		$this->render('Login');
-	}
-
-	public function CadastroEventos() {
-		$cadastro_eventos = Container::getModel('Usuario');
-		$this->view->usuarios = $cadastro_eventos->getAll();
-		$this->render('cadastro_eventos');
 	}
 
 	public function autenticar() {
