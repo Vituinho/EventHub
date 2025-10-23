@@ -8,22 +8,26 @@ class Route extends Bootstrap {
 
 	protected function initRoutes() {
 
+		/*Parte de cadastro*/
+
 		$routes['cadastro'] = array(
 			'route' => '/cadastro',
 			'controller' => 'LoginController',
 			'action' => 'Cadastro'
 		);
 
+		$routes['verificar_email'] = array(
+			'route' => '/cadastro/verificar',
+			'controller' => 'LoginController',
+			'action' => 'verificarEmail'
+		);
+
+		/*Parte de login*/
+
 		$routes['login'] = array(
 			'route' => '/',
 			'controller' => 'LoginController',
 			'action' => 'Login'
-		);
-
-		$routes['home'] = array(
-			'route' => '/home',
-			'controller' => 'LoginController',
-			'action' => 'Home'
 		);
 
 		$routes['novoUsuario'] = array(
@@ -32,10 +36,18 @@ class Route extends Bootstrap {
 			'action' => 'NovoUsuario'
 		);
 
-		$routes['cadastro_eventos'] = array(
-			'route' => '/eventos/cadastrar',
-			'controller' => 'EventosController',
-			'action' => 'CadastroEventos'
+		$routes['autenticar'] = array(
+			'route' => '/login/autenticar',
+			'controller' => 'LoginController',
+			'action' => 'autenticar'
+		);
+
+		/*Parte da home*/
+
+		$routes['home'] = array(
+			'route' => '/home',
+			'controller' => 'LoginController',
+			'action' => 'Home'
 		);
 
 		$routes['sobre'] = array(
@@ -44,10 +56,12 @@ class Route extends Bootstrap {
 			'action' => 'Sobre'
 		);
 
-		$routes['autenticar'] = array(
-			'route' => '/login/autenticar',
-			'controller' => 'LoginController',
-			'action' => 'autenticar'
+		/*Parte de eventos*/
+
+		$routes['cadastro_eventos'] = array(
+			'route' => '/eventos/cadastrar',
+			'controller' => 'EventosController',
+			'action' => 'CadastroEventos'
 		);
 
 		$this->setRoutes($routes);

@@ -27,14 +27,38 @@ class LoginController extends Action {
 	}
 
 	public function NovoUsuario() {
-		$cadastro = Container::getModel('Usuario');
+		$usuario = Container::getModel('Usuario');
 
-		$cadastro->__set('nome', $_POST['nome']);
-		$cadastro->__set('email', $_POST['email']);
-		$cadastro->__set('senha', $_POST['senha']);
+		$usuario->__set('nome', $_POST['nome']);
+		$usuario->__set('email', $_POST['email']);
+		$usuario->__set('senha', $_POST['senha']);
 
-		$cadastro->salvar();
-		$this->render('Login');
+		$senha = $_POST['senha'];
+
+		
+
+	}
+
+	public function verificarEmail() {
+		$usuario = Container::getModel('Usuario');
+
+		$usuario->__set('email', $_POST['email']);
+
+		$email = $_POST['email'];
+
+		$query = "SELECT id_usuario FROM usuarios WHERE email = :email";
+
+		$stmt = $usuario->db->prepare($query);
+		$stmt->bindValue(':email', $email);
+		$stmt->execute();
+
+		if($stmt->rowCount()>0) {
+			header('Location: /cadastro?erro=0');
+			exit;
+		}
+
+		header('Location: /usuario/salvar');
+		exit;
 	}
 
 	public function autenticar() {
