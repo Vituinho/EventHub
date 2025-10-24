@@ -9,7 +9,7 @@ use MF\Model\Container;
 class EventosController extends Action {
 
     public function CadastroEventos() {
-		$cadastro_eventos = Container::getModel('Usuario');
+		$cadastro_eventos = Container::getModel('Eventos');
 		$this->view->usuarios = $cadastro_eventos->getAll();
 		$this->render('cadastro_eventos');
 	}

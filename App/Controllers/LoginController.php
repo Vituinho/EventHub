@@ -21,8 +21,8 @@ class LoginController extends Action {
 	}
 
 	public function Home() {
-		$login = Container::getModel('Usuario');
-		$this->view->usuarios = $login->getAll();
+		$home = Container::getModel('Eventos');
+		$this->view->eventos = $home->getAll();
 		$this->render('Home');
 	}
 
