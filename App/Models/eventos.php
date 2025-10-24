@@ -52,12 +52,13 @@ class Eventos extends Model {
     }
 
     public function salvar() {
-        $query = "INSERT INTO eventos (nome, data, local, detalhes) VALUES (:nome, :data, :local, :detalhes)";
+        $query = "INSERT INTO eventos (nome, data, local, detalhes, id_usuario) VALUES (:nome, :data, :local, :detalhes, :id_usuario)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':data', $this->__get('data'));
         $stmt->bindValue(':local', $this->__get('local'));
         $stmt->bindValue(':detalhes', $this->__get('detalhes'));
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->execute();
 
     return $this;
