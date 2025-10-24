@@ -70,6 +70,12 @@ class Route extends Bootstrap {
 			'action' => 'CadastrarEventos'
 		);
 
+		$routes['detalhes_eventos'] = array(
+			'route' => '/eventos/detalhes',
+			'controller' => 'EventosController',
+			'action' => 'MostrarDetalhes'
+		);
+
 		$this->setRoutes($routes);
 	}
 
