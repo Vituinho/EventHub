@@ -11,6 +11,7 @@ class Eventos extends Model {
     private $data;
     private $local;
     private $detalhes;
+    private $imagem;
     private $id_usuario;
 
     public function __get($atributo) {
@@ -52,12 +53,33 @@ class Eventos extends Model {
     }
 
     public function salvar() {
-        $query = "INSERT INTO eventos (nome, data, local, detalhes, id_usuario) VALUES (:nome, :data, :local, :detalhes, :id_usuario)";
+
+        $uploadDir = 'uploads/';
+        if(!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $imagem = null;
+
+        if (!empty($_FILES['imagem']['name'])) {
+            $extensao = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
+            $nomeArquivo = uniqid('evento_', true) . '.' . $extensao;
+            $caminhoRelativo = $uploadDir . $nomeArquivo;
+
+            if(move_uploaded_file($_FILES['imagem']['tmp_name'], $caminhoRelativo)) {
+                $imagem = $caminhoRelativo;
+            }
+        }
+
+        $this->__set('imagem', $imagem);
+
+        $query = "INSERT INTO eventos (nome, data, local, detalhes, imagem, id_usuario) VALUES (:nome, :data, :local, :detalhes, :imagem, :id_usuario)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':data', $this->__get('data'));
         $stmt->bindValue(':local', $this->__get('local'));
         $stmt->bindValue(':detalhes', $this->__get('detalhes'));
+        $stmt->bindValue(':imagem', $this->__get('imagem'));
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->execute();
 
