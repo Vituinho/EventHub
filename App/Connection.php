@@ -34,7 +34,7 @@ class Connection {
             $conn->exec("CREATE TABLE IF NOT EXISTS eventos (
                 id_evento INT AUTO_INCREMENT PRIMARY KEY,
                 nome VARCHAR(100) NOT NULL,
-                data DATE NOT NULL,
+                data DATETIME NOT NULL,
                 local VARCHAR(300) NOT NULL,
                 detalhes VARCHAR(1000) NOT NULL,
                 id_usuario int NOT NULL,
