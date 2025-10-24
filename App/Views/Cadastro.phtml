@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div class="alert-area mb-3" aria-live="polite"></div>
 
-                <form action="/cadastro/verificar" method="POST" novalidate>
+                <form action="/usuario/salvar" method="POST" novalidate>
 
                     <?php if (isset($_GET['erro']) && $_GET['erro'] == 0): ?>
                         <div class="d-flex justify-content-center mb-3">
@@ -64,7 +64,7 @@
                     <div class="mb-3">
                         <label class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" name="senha" class="form-control" required minlength="6" placeholder="Senha" />
+                            <input type="password" name="senha" class="form-control" required placeholder="Senha" />
                             <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
                             <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
                         </div>

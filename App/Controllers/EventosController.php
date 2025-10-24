@@ -10,7 +10,7 @@ class EventosController extends Action {
 
     public function CadastroEventos() {
 		$cadastro_eventos = Container::getModel('Eventos');
-		$this->view->usuarios = $cadastro_eventos->getAll();
+		$this->view->eventos = $cadastro_eventos->salvar();
 		$this->render('cadastro_eventos');
 	}
 
