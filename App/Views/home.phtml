@@ -112,43 +112,25 @@
       <h2 class="mb-4">Próximos Eventos</h2>
       <div class="row row-cols-1 row-cols-md-3 g-4">
 
+      <?php foreach($this->view->eventos as $evento): ?>
+
         <div class="col">
           <div class="card h-100">
             <img src="img/palestra.jpg" class="card-img-top" alt="Palestra">
             <div class="card-body">
-              <h5 class="card-title">Palestra</h5>
-              <p class="card-text">Data: 25/10/2025</p>
-              <p class="card-text">Local: Salão dos Idosos</p>
-              <a href="#" class="btn btn-success">Detalhes</a>
+              <h5 class="card-title"><?= $evento['nome'] ?></h5>
+              <p class="card-text">Data: <?= $evento['data'] ?></p>
+              <p class="card-text">Local: <?= $evento['local'] ?></p>
+              <a href="<?= $evento['detalhes'] ?>" class="btn btn-success">Detalhes</a>
             </div>
           </div>
         </div>
 
-        <div class="col">
-          <div class="card h-100">
-            <img src="/img/reuniao.jpg" class="card-img-top" alt="Reunião">
-            <div class="card-body">
-              <h5 class="card-title">Reunião</h5>
-              <p class="card-text">Data: 28/10/2025</p>
-              <p class="card-text">Local: UniGazin</p>
-              <a href="#" class="btn btn-success">Detalhes</a>
-            </div>
-          </div>
-        </div>
+        <?php endforeach; ?>
 
-        <div class="col">
-          <div class="card h-100">
-            <img src="img/show.jpg" class="card-img-top" alt="Show">
-            <div class="card-body">
-              <h5 class="card-title">Show</h5>
-              <p class="card-text">Data: 30/10/2025</p>
-              <p class="card-text">Local: Expo</p>
-              <a href="#" class="btn btn-success">Detalhes</a>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
+      </div>
+
   </section>
 
   <footer class="bg-dark text-white text-center py-3">
