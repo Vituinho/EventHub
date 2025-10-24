@@ -37,6 +37,7 @@ class Connection {
                 data DATETIME NOT NULL,
                 local VARCHAR(300) NOT NULL,
                 detalhes VARCHAR(1000) NOT NULL,
+                imagem VARCHAR(255) DEFAULT NULL,
                 id_usuario int NOT NULL,
                 FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
             )");
