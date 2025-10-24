@@ -37,6 +37,12 @@ class EventosController extends Action {
 		exit;
 	}
 
+	public function MostrarDetalhes() {
+		$cadastro_eventos = Container::getModel('Eventos');
+		$this->view->eventos = $cadastro_eventos->getAll();
+		$this->render('detalhes_eventos');
+	}
+
 }
 
 
