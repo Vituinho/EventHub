@@ -35,11 +35,12 @@ class Usuario extends Model {
     }
 
     public function atualizar() {
-        $query = "UPDATE usuarios SET nome = :nome, email = :email, senha = :senha WHERE id_usuario = :id_usuario";
+        $query = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':email', $this->__get('email'));
+        $stmt->bindValue(':telefone', $this->__get('telefone'));
         $stmt->bindValue(':senha', $this->__get('senha'));
         $stmt->execute();
     }
@@ -52,18 +53,22 @@ class Usuario extends Model {
     }
 
     public function salvar() {
-        $query = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
+        $query = "INSERT INTO usuarios (nome, email, telefone, senha) VALUES (:nome, :email, :telefone, :senha)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':email', $this->__get('email'));
+        $stmt->bindValue(':telefone', $this->__get('telefone'));
         $stmt->bindValue(':senha', password_hash($this->__get('senha'), PASSWORD_DEFAULT));
         $stmt->execute();
 
-    return $this;
+        header('Location: /home');
+        exit;
+
+        return $this;
     }
 
     public function autenticar() {
-        $query = "SELECT id_usuario, nome, email, senha FROM usuarios WHERE email = :email";
+        $query = "SELECT id_usuario, nome, email, telefone, senha FROM usuarios WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':email', $this->__get('email'));
         $stmt->execute();
@@ -74,6 +79,7 @@ class Usuario extends Model {
             $this->__set('id_usuario', $usuario['id_usuario']);
             $this->__set('nome', $usuario['nome']);
             $this->__set('email', $usuario['email']);
+            $this->__set('telefone', $usuario['telefone']);
             return $this; // retorna o usuário autenticado
         } else {
             return false;

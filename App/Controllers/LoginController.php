@@ -31,6 +31,7 @@ class LoginController extends Action {
 
 		$usuario->__set('nome', $_POST['nome']);
 		$usuario->__set('email', $_POST['email']);
+		$usuario->__set('telefone', $_POST['telefone']);
 		$usuario->__set('senha', $_POST['senha']);
 
 		$senha = $_POST['senha'];
@@ -80,6 +81,7 @@ class LoginController extends Action {
             $_SESSION['id_usuario'] = $usuario_autenticado->__get('id_usuario');
             $_SESSION['nome'] = $usuario_autenticado->__get('nome');
             $_SESSION['email'] = $usuario_autenticado->__get('email');
+			$_SESSION['telefone'] = $usuario_autenticado->__get('telefone');
 
             header('Location: /home');
         } else {
