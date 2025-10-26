@@ -56,18 +56,22 @@
           </div>
         </nav>
 
+
+        <?php foreach($this->view->eventos as $evento): ?>
+
         <!-- HERO com imagem e título grande -->
         <header class="hero">
           <div class="container">
             <div class="row g-3 align-items-center">
               <div class="col-lg-8">
-                <h1 class="display-6 fw-bold mb">Festa das Colheitas — Vozes do Campo</h1>
+                <h1 class="display-6 fw-bold mb"><?=  ?></h1>
                 <div class="event-meta d-flex flex-wrap gap-2 align-items-center">
                   <span class="badge bg-warning text-dark">Data: 12 de Novembro de 2025</span>
                   <span class="badge bg-info text-dark">Horário: 14:00</span>
                   <span class="badge bg-success">Local: Sítio Boa Vista, Rod. BR-123, km 45</span>
                 </div>
               </div>
+        <?php endforeach; ?>
 
               <div class="col-lg-4 text-lg-end">
                 <!-- Call-to-action visual (sem JS) -->

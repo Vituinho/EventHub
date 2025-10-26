@@ -108,29 +108,30 @@
   </section>
 
   <section class="py-5">
-    <div class="container">
-      <h2 class="mb-4">Próximos Eventos</h2>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+    <form action="/eventos/detalhes" method="POST">
+      <div class="container">
+        <h2 class="mb-4">Próximos Eventos</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
 
-      <?php foreach($this->view->eventos as $evento): ?>
+        <?php foreach($this->view->eventos as $evento): ?>
 
-        <div class="col">
-          <div class="card h-100">
-            <img src="/<?= $evento['imagem'] ?>" class="card-img-top" alt="Imagem">
-            <div class="card-body">
-              <h5 class="card-title"><?= $evento['nome'] ?></h5>
-              <p class="card-text">Data: <?= $evento['data'] ?></p>
-              <p class="card-text">Local: <?= $evento['local'] ?></p>
-              <a href="<?= $evento['detalhes'] ?>" class="btn btn-success">Detalhes</a>
+          <div class="col">
+            <div class="card h-100">
+              <img src="/<?= $evento['imagem'] ?>" class="card-img-top" alt="Imagem">
+              <div class="card-body">
+                <h5 class="card-title"><?= $evento['nome'] ?></h5>
+                <p class="card-text">Data: <?= $evento['data'] ?></p>
+                <p class="card-text">Local: <?= $evento['local'] ?></p>
+                <button type="submit" class="btn btn-success">Detalhes</button>
+              </div>
             </div>
           </div>
+
+          <?php endforeach; ?>
+
         </div>
-
-        <?php endforeach; ?>
-
       </div>
-      </div>
-
+    </form>
   </section>
 
   <footer class="bg-dark text-white text-center py-3">

@@ -41,6 +41,9 @@ class EventosController extends Action {
 		$cadastro_eventos = Container::getModel('Eventos');
 		$this->view->eventos = $cadastro_eventos->getAll();
 		$this->render('detalhes_eventos');
+
+		header('Location: /eventos/detalhes');
+		exit;
 	}
 
 }
