@@ -30,10 +30,30 @@ class Eventos extends Model {
     }
 
     public function getById($id_evento) {
+        /* Antes do INNER JOIN
         $query = "SELECT * FROM eventos WHERE id_evento = :id_evento";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_evento', $id_evento);
         $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        */
+
+        $query = "
+            SELECT 
+                e.*, 
+                u.nome AS nome_usuario, 
+                u.email AS email_usuario, 
+                u.telefone AS telefone_usuario
+            FROM eventos e
+            INNER JOIN usuarios u ON e.id_usuario = u.id_usuario
+            WHERE e.id_evento = :id_evento
+            LIMIT 1
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_evento', $id_evento, \PDO::PARAM_INT);
+        $stmt->execute();
+
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
