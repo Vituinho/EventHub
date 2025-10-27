@@ -49,24 +49,27 @@ class LoginController extends Action {
 	public function verificarEmail() {
 		$usuario = Container::getModel('Usuario');
 
-		$usuario->__set('email', $_POST['email']);
+		$email = $_POST['email'] ?? '';
 
-		$email = $_POST['email'];
-
-		$query = "SELECT id_usuario FROM usuarios WHERE email = :email";
-
-		$stmt = $usuario->db->prepare($query);
-		$stmt->bindValue(':email', $email);
-		$stmt->execute();
-
-		if($stmt->rowCount()>0) {
-			header('Location: /cadastro?erro=0');
+		if(empty($email)) {
+			header('Location: /cadastro?erro=email_vazio');
 			exit;
 		}
 
-		header('Location: /usuario/salvar');
-		exit;
+		if($usuario->emailExiste($email)) {
+			header('Location: /cadastro?erro=0'); // email já cadastrado
+			exit;
+		}
+
+		// email não existe, segue para salvar
+		$usuario->__set('email', $email);
+		$usuario->__set('nome', $_POST['nome'] ?? '');
+		$usuario->__set('telefone', $_POST['telefone'] ?? '');
+		$usuario->__set('senha', $_POST['senha'] ?? '');
+
+		$usuario->salvar();
 	}
+
 
 	public function autenticar() {
 		session_start();
