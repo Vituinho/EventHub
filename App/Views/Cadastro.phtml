@@ -66,23 +66,25 @@
                         <input type="tel" id="telefone" name="telefone" 
                         pattern="\(\d{2}\)\s\d{4,5}-\d{4}" class="form-control"  
                         placeholder="(99) 99999-9999" required>
-
-                        <script>
-                        document.getElementById('telefone').addEventListener('input', function (e) {
-                        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-                        });
-                        </script>
                         <div class="invalid-feedback">Informe um telefone válido.</div>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Senha</label>
                         <div class="input-group">
-                            <input type="password" name="senha" class="form-control" required placeholder="Senha" />
-                            <button class="btn btn-outline-secondary password-toggle" type="button" id="togglePassword">Mostrar</button>
-                            <div class="invalid-feedback">Senha mínima de 6 caracteres.</div>
+                            <input type="password" name="senha" id="senha" class="form-control" required placeholder="Senha" />
+                            
                         </div>
+                        <div>
+                            <div class="progress mt-3">
+
+                            <div class="progress-bar" id="barra-forca" style="width:0%;"></div>
+                            </div>
+                            <span id="nivel-senha" style="font-weight:bold; margin-left:5px;">Muito Fraca</span>
+                        </div>
+                        
+                        
+
 
                     <button type="submit" class="btn btn-primary mt-3">Cadastrar-se</button>
                 </form>
@@ -99,6 +101,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- JS do projeto -->
-<script src="{{ asset('') }}"></script>
+<script src="/script.js"></script>
+
 </body>
 </html>
