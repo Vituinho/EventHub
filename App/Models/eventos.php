@@ -29,6 +29,14 @@ class Eventos extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getById($id_evento) {
+        $query = "SELECT * FROM eventos WHERE id_evento = :id_evento";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_evento', $id_evento);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
     public function atualizar() {
         $query = "
         UPDATE
@@ -45,10 +53,10 @@ class Eventos extends Model {
         $stmt->execute();
     }
 
-    public function excluir($id) {
+    public function excluir($id_evento) {
         $query = "DELETE FROM eventos WHERE id_evento = :id_evento";
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id_evento', $id);
+        $stmt->bindValue(':id_evento', $id_evento);
         $stmt->execute();
     }
 
