@@ -38,12 +38,18 @@ class EventosController extends Action {
 	}
 
 	public function MostrarDetalhes() {
+
+		$id_evento = $_GET['id'] ?? null;
 		$cadastro_eventos = Container::getModel('Eventos');
-		$this->view->eventos = $cadastro_eventos->getAll();
+
+		if ($id_evento) {
+			$this->view->evento = $cadastro_eventos->getById($id_evento);
+		} else {
+			$this->view->evento = null;
+		}
+
 		$this->render('detalhes_eventos');
 
-		header('Location: /eventos/detalhes');
-		exit;
 	}
 
 }
