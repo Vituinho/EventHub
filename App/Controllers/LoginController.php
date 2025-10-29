@@ -17,13 +17,13 @@ class LoginController extends Action {
 	public function Login() {
 		$login = Container::getModel('Usuario');
 		$this->view->usuarios = $login->getAll();
-		$this->render('Login');
+		$this->render('login');
 	}
 
 	public function Home() {
 		$home = Container::getModel('Eventos');
 		$this->view->eventos = $home->getAll();
-		$this->render('Home');
+		$this->render('home');
 	}
 
 	public function NovoUsuario() {
@@ -32,20 +32,22 @@ class LoginController extends Action {
 		$nome = trim($_POST['nome'] ?? '');
 		$email = trim($_POST['email'] ?? '');
 		$telefone = trim($_POST['telefone'] ?? '');
-		$senha = $_POST['senha'] ?? '';
+		$senha = trim($_POST['senha'] ?? '');
 
-		if(empty($email)) {
+		// validações
+		if (empty($email)) {
 			header('Location: /cadastro?erro=2'); // email vazio
 			exit;
 		}
 
-		if($usuario->verificarEmail($email)) {
+		if ($usuario->verificarEmail($email)) {
 			header('Location: /cadastro?erro=0'); // email já cadastrado
 			exit;
 		}
 
-		if(strlen($senha) < 8) {
-			header('Location: /cadastro?erro=1'); // senha curta
+		$forca = $usuario->calcularForcaSenha($senha);
+		if ($forca < 5) {
+			header('Location: /cadastro?erro=3'); // senha fraca
 			exit;
 		}
 
@@ -54,36 +56,13 @@ class LoginController extends Action {
 		$usuario->__set('email', $email);
 		$usuario->__set('telefone', $telefone);
 		$usuario->__set('senha', $senha);
-
 		$usuario->salvar();
 
-		// redireciona para login
-		header('Location: /home');
+		// redireciona pra login
+		header('Location: /');
 		exit;
+
 	}
-
-	public function verificarEmail() {
-		$usuario = Container::getModel('Usuario');
-
-		$email = trim($_POST['email'] ?? '');
-		if(empty($email)) {
-			header('Location: /cadastro?erro=2'); // email vazio
-			exit;
-		}
-		if($usuario->verificarEmail($email)) {
-			header('Location: /cadastro?erro=0'); // email já cadastrado
-			exit;
-		} else {
-			// email não existe, segue para salvar
-			$usuario->__set('email', $email);
-			$usuario->__set('nome', $_POST['nome'] ?? '');
-			$usuario->__set('telefone', $_POST['telefone'] ?? '');
-			$usuario->__set('senha', $_POST['senha'] ?? '');
-
-			$usuario->salvar();
-		}
-	}
-
 
 	public function autenticar() {
 		session_start();
