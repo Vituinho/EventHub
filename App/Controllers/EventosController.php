@@ -52,6 +52,20 @@ class EventosController extends Action {
 
 	}
 
+	public function MeusEventos() {
+
+		$id_usuario = $_SESSION['id'];
+		$cadastro_eventos = Container::getModel('Eventos');
+
+		if ($id_evento) {
+			$this->view->eventos = $cadastro_eventos->getById($id_usuario);
+		} else {
+			$this->view->evento = null;
+		}
+
+		$this->render('meus_eventos');
+	}
+
 }
 
 

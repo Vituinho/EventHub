@@ -58,6 +58,12 @@ class Route extends Bootstrap {
 
 		/*Parte de eventos*/
 
+		$routes['meus_eventos'] = array(
+			'route' => '/eventos',
+			'controller' => 'EventosController',
+			'action' => 'MeusEventos'
+		);
+
 		$routes['cadastro_eventos'] = array(
 			'route' => '/eventos/cadastro',
 			'controller' => 'EventosController',
