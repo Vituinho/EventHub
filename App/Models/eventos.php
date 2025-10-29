@@ -118,6 +118,7 @@ class Eventos extends Model {
         $stmt->bindValue(':detalhes', $this->__get('detalhes'));
         $stmt->bindValue(':imagem', $this->__get('imagem'));
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+
         $stmt->execute();
 
     return $this;

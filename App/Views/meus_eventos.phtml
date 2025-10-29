@@ -66,26 +66,24 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/eventos/cadastro">Cadastrar Evento</a></li>
+          <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Painel de Eventos</a></li>
           <li class="nav-item"><a class="nav-link" href="/eventos/sobre">Sobre</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-                    
-
   <section class="py-5 text-center bg-light">
     <div class="container">
       <h1 class="display-4">Painel de Eventos</h1>
-      <p class="lead">Cadastre seus eventos de forma rápida e prática.</p>
+      <p class="lead">Cadastre e visualize seus eventos de forma rápida e prática.</p>
       <a href="/eventos/cadastro" class="btn btn-primary btn-lg">Cadastrar Evento</a>
     </div>
   </section>
 
   <section class="py-5">
-    <form action="/eventos/detalhes" method="POST">
+    <form action="/eventos/detalhes/" method="POST">
       <div class="container">
         <h2 class="mb-4">Meus Eventos</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -99,7 +97,7 @@
                 <h5 class="card-title"><?= $evento['nome'] ?></h5>
                 <p class="card-text">Data: <?= $evento['data'] ?></p>
                 <p class="card-text">Local: <?= $evento['local'] ?></p>
-                <form action="/eventos/detalhes" method="POST">
+                <form action="/eventos/detalhes/" method="POST">
                   <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
                   <button type="submit" class="btn btn-success">Detalhes</button>
               </form>
