@@ -39,11 +39,21 @@ class EventosController extends Action {
 
 	public function MostrarDetalhes() {
 
-		$id_evento = $_GET['id'] ?? null;
+		$id_evento = $_POST['id_evento'] ?? null;
 		$cadastro_eventos = Container::getModel('Eventos');
 
 		if ($id_evento) {
-			$this->view->evento = $cadastro_eventos->getById($id_evento);
+        $evento = $cadastro_eventos->getById($id_evento);
+
+        // Só permite acessar se for do próprio usuário
+        if ($evento['id_usuario'] != $_SESSION['id_usuario']) {
+            // Redireciona ou mostra erro
+            header('Location: /home?erro=0');
+            exit;
+        }
+
+		$this->view->evento = $evento;
+
 		} else {
 			$this->view->evento = null;
 		}

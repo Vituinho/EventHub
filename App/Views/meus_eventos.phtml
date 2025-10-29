@@ -74,6 +74,8 @@
     </div>
   </nav>
 
+                    
+
   <section class="py-5 text-center bg-light">
     <div class="container">
       <h1 class="display-4">Painel de Eventos</h1>
@@ -97,7 +99,11 @@
                 <h5 class="card-title"><?= $evento['nome'] ?></h5>
                 <p class="card-text">Data: <?= $evento['data'] ?></p>
                 <p class="card-text">Local: <?= $evento['local'] ?></p>
-                <a href="/eventos/detalhes/?id=<?= $evento['id_evento'] ?>" class="btn btn-success">Detalhes</a>
+                <form action="/eventos/detalhes" method="POST">
+                  <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                  <button type="submit" class="btn btn-success">Detalhes</button>
+              </form>
+
               </div>
             </div>
           </div>
