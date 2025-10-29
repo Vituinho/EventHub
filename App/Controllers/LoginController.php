@@ -29,45 +29,59 @@ class LoginController extends Action {
 	public function NovoUsuario() {
 		$usuario = Container::getModel('Usuario');
 
-		$usuario->__set('nome', $_POST['nome']);
-		$usuario->__set('email', $_POST['email']);
-		$usuario->__set('telefone', $_POST['telefone']);
-		$usuario->__set('senha', $_POST['senha']);
+		$nome = trim($_POST['nome'] ?? '');
+		$email = trim($_POST['email'] ?? '');
+		$telefone = trim($_POST['telefone'] ?? '');
+		$senha = $_POST['senha'] ?? '';
 
-		$senha = $_POST['senha'];
-
-		if(strlen($senha) < 8) {
-			header('Location: /cadastro?erro=1');
+		if(empty($email)) {
+			header('Location: /cadastro?erro=2'); // email vazio
 			exit;
-		} else {
-			$usuario->salvar();
-			$this->render('Login');
 		}
 
+		if($usuario->verificarEmail($email)) {
+			header('Location: /cadastro?erro=0'); // email já cadastrado
+			exit;
+		}
+
+		if(strlen($senha) < 8) {
+			header('Location: /cadastro?erro=1'); // senha curta
+			exit;
+		}
+
+		// tudo certo, salvar
+		$usuario->__set('nome', $nome);
+		$usuario->__set('email', $email);
+		$usuario->__set('telefone', $telefone);
+		$usuario->__set('senha', $senha);
+
+		$usuario->salvar();
+
+		// redireciona para login
+		header('Location: /home');
+		exit;
 	}
 
 	public function verificarEmail() {
 		$usuario = Container::getModel('Usuario');
 
-		$email = $_POST['email'] ?? '';
-
+		$email = trim($_POST['email'] ?? '');
 		if(empty($email)) {
-			header('Location: /cadastro?erro=email_vazio');
+			header('Location: /cadastro?erro=2'); // email vazio
 			exit;
 		}
-
-		if($usuario->emailExiste($email)) {
+		if($usuario->verificarEmail($email)) {
 			header('Location: /cadastro?erro=0'); // email já cadastrado
 			exit;
+		} else {
+			// email não existe, segue para salvar
+			$usuario->__set('email', $email);
+			$usuario->__set('nome', $_POST['nome'] ?? '');
+			$usuario->__set('telefone', $_POST['telefone'] ?? '');
+			$usuario->__set('senha', $_POST['senha'] ?? '');
+
+			$usuario->salvar();
 		}
-
-		// email não existe, segue para salvar
-		$usuario->__set('email', $email);
-		$usuario->__set('nome', $_POST['nome'] ?? '');
-		$usuario->__set('telefone', $_POST['telefone'] ?? '');
-		$usuario->__set('senha', $_POST['senha'] ?? '');
-
-		$usuario->salvar();
 	}
 
 
@@ -80,7 +94,7 @@ class LoginController extends Action {
 
         $usuario_autenticado = $usuario->autenticar();
 
-        if ($usuario_autenticado && $usuario_autenticado->__get('id_usuario') != '') {
+        if ($usuario_autenticado && !empty($usuario_autenticado->__get('id_usuario'))) {
             $_SESSION['id_usuario'] = $usuario_autenticado->__get('id_usuario');
             $_SESSION['nome'] = $usuario_autenticado->__get('nome');
             $_SESSION['email'] = $usuario_autenticado->__get('email');
@@ -90,6 +104,8 @@ class LoginController extends Action {
         } else {
             header('Location: /?erro=1');
         }
+
+		
     }
 
 	public function logout() {

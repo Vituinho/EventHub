@@ -46,12 +46,12 @@ class Usuario extends Model {
     }
 
     public function verificarEmail($email) {
-    $query = "SELECT id_usuario FROM usuarios WHERE email = :email";
-    $stmt = $this->db->prepare($query);
-    $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
-    $stmt->execute();
+        $query = "SELECT id_usuario FROM usuarios WHERE email = :email";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+        $stmt->execute();
 
-    return $stmt->rowCount() > 0;
+        return $stmt->rowCount() > 0;
     }
 
     public function excluir($id) {
@@ -69,9 +69,6 @@ class Usuario extends Model {
         $stmt->bindValue(':telefone', $this->__get('telefone'));
         $stmt->bindValue(':senha', password_hash($this->__get('senha'), PASSWORD_DEFAULT));
         $stmt->execute();
-
-        header('Location: /cadastro/verificar');
-        exit;
 
         return $this;
     }
@@ -94,7 +91,6 @@ class Usuario extends Model {
             return false;
         }
     }
-
 
 }
 
