@@ -57,6 +57,15 @@ class Eventos extends Model {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function getByIdUsuario($id_usuario) {
+        
+        $query = "SELECT * FROM eventos WHERE id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $id_usuario);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function atualizar() {
         $query = "
         UPDATE
