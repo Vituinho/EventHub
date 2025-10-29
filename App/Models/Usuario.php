@@ -54,6 +54,17 @@ class Usuario extends Model {
         return $stmt->rowCount() > 0;
     }
 
+    public function calcularForcaSenha($senha) {
+        $forca = 0;
+        if (mb_strlen($senha) >= 8) $forca++;
+        if (preg_match('/[a-z]/', $senha)) $forca++;
+        if (preg_match('/[A-Z]/', $senha)) $forca++;
+        if (preg_match('/\d/', $senha)) $forca++;
+        if (preg_match('/[^\p{L}\p{N}]/u', $senha)) $forca++;
+        return $forca;
+    }
+
+
     public function excluir($id) {
         $query = "DELETE FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);

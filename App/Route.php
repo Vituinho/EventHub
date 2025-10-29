@@ -16,10 +16,10 @@ class Route extends Bootstrap {
 			'action' => 'Cadastro'
 		);
 
-		$routes['verificar_email'] = array(
+		$routes['verificacoes'] = array(
 			'route' => '/cadastro/verificar',
 			'controller' => 'LoginController',
-			'action' => 'verificarEmail'
+			'action' => 'verificacoes'
 		);
 
 		/*Parte de login*/
