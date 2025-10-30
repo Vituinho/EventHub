@@ -35,8 +35,9 @@ class LoginController extends Action {
 		$senha = trim($_POST['senha'] ?? '');
 
 		// validações
-		if (empty($email)) {
-			header('Location: /cadastro?erro=2'); // email vazio
+
+		if (empty($telefone) || empty($nome) || empty($email) || empty($senha)) {
+			header('Location: /cadastro?erro=2'); // valores vazios
 			exit;
 		}
 
@@ -46,10 +47,12 @@ class LoginController extends Action {
 		}
 
 		$forca = $usuario->calcularForcaSenha($senha);
-		if ($forca < 5) {
+		if ($forca < 3) {
 			header('Location: /cadastro?erro=3'); // senha fraca
 			exit;
 		}
+
+		
 
 		// tudo certo, salvar
 		$usuario->__set('nome', $nome);
@@ -86,6 +89,10 @@ class LoginController extends Action {
 
 		
     }
+
+	public function sobre() {
+		$this->render('sobre');
+	}
 
 	public function logout() {
         session_start();
