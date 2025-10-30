@@ -1,0 +1,176 @@
+<?php
+  require_once '../App/Auth.php';
+  requireLogin();
+?>
+
+    <!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sobre — Sistema de Eventos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">🎉 Eventos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/eventos">Painel de Eventos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <!-- Hero -->
+    <section class="p-4 p-md-5 mb-5 bg-light rounded-4">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="display-6 fw-bold">Sobre o Sistema de Eventos</h1>
+          <p class="lead">Projeto pessoal criado por <strong>Victor Emanuel da Silva Moraes</strong> — uma plataforma pensada para facilitar a organização, divulgação e gestão de eventos de pequeno e médio porte. Simples, acessível e construída para aprender, ensinar e impressionar.</p>
+          <div class="mt-3">
+            <a href="#missao" class="btn btn-primary btn-lg me-2">Nossa missão</a>
+            <a href="#tecnologia" class="btn btn-outline-secondary btn-lg">Tecnologia</a>
+          </div>
+        </div>
+        <div class="col-md-4 text-center mt-4 mt-md-0">
+          <img src="https://via.placeholder.com/260x160.png?text=Sistema+de+Eventos" alt="Ilustração do sistema" class="img-fluid rounded">
+        </div>
+      </div>
+    </section>
+
+    <!-- Missão / Visão / Valores -->
+    <section id="missao" class="mb-5">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Missão</h5>
+              <p class="card-text">Criar uma solução que seja leve e acessivel e consiga ajudar o maior numero de empresas ou pessoas, que for possível, e principalmente aprender mais sobre criação de websites.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Visão</h5>
+              <p class="card-text">Ser referência em projetos educacionais que combinam usabilidade e boas práticas de desenvolvimento, inspirando estudantes e organizadores a criarem experiências memoráveis.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Valores</h5>
+              <ul class="mb-0">
+                <li>Transparência no código e nas decisões;</li>
+                <li>Foco em usabilidade;</li>
+                <li>Aprendizado contínuo;</li>
+                <li>Respeito ao usuário e aos dados;</li>
+                <li>Criatividade e simplicidade.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- O Projeto -->
+    <section class="mb-5">
+      <h2 class="h3 mb-3">O projeto</h2>
+      <p>Este <strong>projeto pessoal</strong> nasceu da criatividade e da pratica, e foi usado pra aprender mais sobre como criar um projeto interessante e funcional; e principalmente oferecer uma interface limpa para usuários e organizadores.</p>
+      <p>Além das funcionalidades principais, o projeto serve como um portfólio que demonstra as habilidades de <strong>Victor Emanuel da Silva Moraes</strong> em front-end e back-end nas aplicações web.</p>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h3 class="h5">Principais características</h3>
+          <ul>
+            <li>Criação e edição de eventos de forma rápida e prática;</li>
+            <li>Página pública para divulgação de cada evento;</li>
+            <li>Busca e filtros por data, local e categoria;</li>
+            <li>Design responsivo e acessível;</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3 class="h5">Público-alvo</h3>
+          <p>Organizadores de pequenas conferências, encontros comunitários, cursos, workshops, festas e eventos escolares — além de estudantes e desenvolvedores que desejam estudar o funcionamento de um sistema real.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tecnologia -->
+    <section id="tecnologia" class="mb-5">
+      <h2 class="h3 mb-3">Tecnologia e arquitetura</h2>
+      <p>Construído com foco em tecnologias web clássicas e boas práticas:</p>
+      <div class="row">
+        <div class="col-md-6">
+          <ul>
+            <li><strong>Front-end:</strong> HTML5, CSS3 e JavaScript (Bootstrap para layout rápido e responsivo).</li>
+            <li><strong>Back-end:</strong> PHP</li>
+            <li><strong>Banco de dados:</strong> MySQL</li>
+            <li><strong>Framework:</strong> De Framework eu utilizei o meu próprio framework simples com a metódologia de arquitetura MVC.</li>
+            <li><strong>Boas práticas:</strong> Semântica HTML, separação de responsabilidades, formulários acessíveis e validação no front e back.</li>
+          </ul>
+        </div>
+    </section>
+
+    <!-- Roadmap & Contribuições -->
+    <section class="mb-5">
+      <h2 class="h3 mb-3">Roadmap e contribuição</h2>
+      <p>O projeto está ativo como uma iniciativa pessoal de aprendizado. As próximas etapas previstas incluem:</p>
+      <ul>
+        <li>Melhorias na experiência de usuário e correções de acessibilidade;</li>
+        <li>Implementação de um sistema de notificações;</li>
+        <li>Criação de testes automatizados e documentação técnica;</li>
+        <li>Publicação do código no GitHub para contribuir com a comunidade.</li>
+      </ul>
+      <p>Contribuições são bem-vindas! Se você quiser colaborar, abrir uma issue ou sugerir melhorias, você pode entrar em contato com o autor (detalhes abaixo) e acompanhar o repositório quando publicado.</p>
+    </section>
+
+    <!-- Autor / Contato -->
+    <section class="mb-5">
+      <h2 class="h3 mb-3">Autor</h2>
+      <div class="card p-3 shadow-sm">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <img src="/img/victor.jfif" width="100"  alt="Avatar do Victor" class="rounded-circle">
+          </div>
+          <div class="col">
+            <h5 class="mb-1">Victor Emanuel da Silva Moraes</h5>
+            <p class="mb-1">Desenvolvedor em formação — entusiasta por web e soluções criativas. Este projeto é parte do portfólio pessoal e de prática.</p>
+            <p class="mb-0"><strong>Projeto pessoal:</strong> Sistema de Eventos</p>
+          </div>
+          <div class="col-md-3 text-md-end mt-3 mt-md-0">
+            <a href="mailto:trabalhovictor531@gmail.com" class="btn btn-outline-primary">Email</a>
+            <a class="btn btn-outline-success" href="https://wa.me/5544920009524?text=Ol%C3%A1%20Victor%2C%20vim%20do%20projeto%20Sistema%20de%20Eventos%20pra%20entrar%20em%20contato%20com%20voc%C3%AA" role="button">Whatsapp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call-to-action final -->
+    <section class="text-center mb-b">
+      <h3 class="h4">Quer melhorar ou Olhar o Código fonte?</h3>
+      <p>Se você gosta da ideia, clone o repositório (quando disponível), teste localmente e envie feedback — toda sugestão ajuda o projeto a evoluir.</p>
+      <a href="https://github.com/Vituinho/CRUD-Sistema-de-Eventos" class="btn btn-lg btn-secondary mb-5">GitHub</a>
+    </section>
+
+    <footer class="fixed-bottom bg-dark text-white text-center py-3">
+        © Victor Emanuel da Silva Moraes
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
