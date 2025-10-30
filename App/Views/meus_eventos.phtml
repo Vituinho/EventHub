@@ -97,10 +97,17 @@
                 <h5 class="card-title"><?= $evento['nome'] ?></h5>
                 <p class="card-text">Data: <?= $evento['data'] ?></p>
                 <p class="card-text">Local: <?= $evento['local'] ?></p>
-                <form action="/eventos/detalhes/" method="POST">
-                  <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
-                  <button type="submit" class="btn btn-success">Detalhes</button>
-              </form>
+                <div>
+                  <form action="/eventos/detalhes/" method="POST">
+                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                    <button type="submit" class="btn btn-success">Detalhes</button>
+                  </form>
+                  <form action="/eventos/editar" method="POST">
+                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                  </form>
+                </div>
+                
 
               </div>
             </div>
