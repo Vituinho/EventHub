@@ -74,6 +74,23 @@ class EventosController extends Action {
 		$this->render('meus_eventos');
 	}
 
+	public function EditarEventos() {
+		$cadastro_eventos = Container::getModel('Eventos');
+
+		$this->view->eventos = $cadastro_eventos->getAll();
+
+		// Setando valores
+		$cadastro_eventos->__set('nome', $_POST['nome']);
+		$cadastro_eventos->__set('data', $_POST['data']);
+		$cadastro_eventos->__set('local', $_POST['local']);
+		$cadastro_eventos->__set('detalhes', $_POST['detalhes']);
+		$cadastro_eventos->__set('imagem', $caminhoRelativo ?? null);
+		$cadastro_eventos->__set('id_usuario', $_SESSION['id_usuario']);
+		
+		$this->view->eventos = $cadastro_eventos->salvar();
+		$this->render('editar_eventos');
+	}
+
 }
 
 
