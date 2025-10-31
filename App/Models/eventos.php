@@ -23,7 +23,7 @@ class Eventos extends Model {
     }
         
     public function getAll() {
-        $query = "SELECT * FROM eventos";
+        $query = "SELECT * FROM eventos ORDER BY data DESC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -67,20 +67,44 @@ class Eventos extends Model {
     }
 
     public function atualizar() {
+        $imagem = $this->__get('imagem');
+
+        $uploadDir = 'uploads/';
+        if(!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+
+        // Se enviou nova imagem
+        if (!empty($_FILES['imagem']['name'])) {
+            $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
+            $nomeArquivo = uniqid('evento_', true) . '.' . $ext;
+            $caminhoRelativo = $uploadDir . $nomeArquivo;
+
+            if(move_uploaded_file($_FILES['imagem']['tmp_name'], $caminhoRelativo)) {
+                $imagem = $caminhoRelativo;
+            }
+        }
+
         $query = "
-        UPDATE
-         eventos SET nome = :nome, data = :data, local = :local, detalhes = :detalhes, id_usuario = :id_usuario 
-         WHERE id_evento = :id_evento
+            UPDATE eventos
+            SET nome = :nome, data = :data, local = :local, detalhes = :detalhes" 
+            . ($imagem ? ", imagem = :imagem" : "") . "
+            WHERE id_evento = :id_evento AND id_usuario = :id_usuario
         ";
+
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(':id_evento', $this->__get('id_evento'));
+        $stmt->bindValue(':id_evento', $this->__get('id_evento'), \PDO::PARAM_INT);
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':data', $this->__get('data'));
         $stmt->bindValue(':local', $this->__get('local'));
         $stmt->bindValue(':detalhes', $this->__get('detalhes'));
-        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'), \PDO::PARAM_INT);
+
+        if ($imagem) {
+            $stmt->bindValue(':imagem', $imagem);
+        }
+
         $stmt->execute();
     }
+
 
     public function excluir($id_evento) {
         $query = "DELETE FROM eventos WHERE id_evento = :id_evento";

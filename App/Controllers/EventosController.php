@@ -75,21 +75,52 @@ class EventosController extends Action {
 	}
 
 	public function EditarEventos() {
-		$cadastro_eventos = Container::getModel('Eventos');
+        $eventosModel = Container::getModel('Eventos');
 
-		$this->view->eventos = $cadastro_eventos->getAll();
+        // Se só veio o id_evento via POST, mostra formulário
+        if (isset($_POST['id_evento']) && !isset($_POST['nome'])) {
+            $id_evento = $_POST['id_evento'];
+            $evento = $eventosModel->getById($id_evento);
 
-		// Setando valores
-		$cadastro_eventos->__set('nome', $_POST['nome']);
-		$cadastro_eventos->__set('data', $_POST['data']);
-		$cadastro_eventos->__set('local', $_POST['local']);
-		$cadastro_eventos->__set('detalhes', $_POST['detalhes']);
-		$cadastro_eventos->__set('imagem', $caminhoRelativo ?? null);
-		$cadastro_eventos->__set('id_usuario', $_SESSION['id_usuario']);
-		
-		$this->view->eventos = $cadastro_eventos->salvar();
-		$this->render('editar_eventos');
+            if ($evento['id_usuario'] != $_SESSION['id_usuario']) {
+                header('Location: /eventos');
+                exit;
+            }
+
+            $this->view->evento = $evento;
+            $this->render('editar_eventos');
+            return;
+        }
+
+        // Se veio formulário de edição completo, atualiza
+        if (isset($_POST['id_evento'], $_POST['nome'], $_POST['data'], $_POST['local'], $_POST['detalhes'])) {
+            $id_evento = $_POST['id_evento'];
+
+            $eventoAtual = $eventosModel->getById($id_evento);
+            if ($eventoAtual['id_usuario'] != $_SESSION['id_usuario']) {
+                header('Location: /eventos');
+                exit;
+            }
+
+            $eventosModel->__set('id_evento', $id_evento);
+            $eventosModel->__set('nome', $_POST['nome']);
+            $eventosModel->__set('data', $_POST['data']);
+            $eventosModel->__set('local', $_POST['local']);
+            $eventosModel->__set('detalhes', $_POST['detalhes']);
+            $eventosModel->__set('id_usuario', $_SESSION['id_usuario']);
+            $eventosModel->__set('imagem', $eventoAtual['imagem']); // mantém imagem antiga se não enviar nova
+
+            $eventosModel->atualizar();
+
+            header('Location: /eventos');
+            exit;
+        }
+
+		// Se nada vier, redireciona
+		header('Location: /eventos');
+		exit;
 	}
+
 
 }
 
