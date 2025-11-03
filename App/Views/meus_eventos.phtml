@@ -98,13 +98,17 @@
                 <p class="card-text">Data: <?= $evento['data'] ?></p>
                 <p class="card-text">Local: <?= $evento['local'] ?></p>
                 <div>
-                  <form action="/eventos/detalhes/" method="POST">
+                  <form action="/eventos/detalhes/" method="POST" class="d-inline-block">
                     <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
                     <button type="submit" class="btn btn-success">Detalhes</button>
                   </form>
-                  <form action="/eventos/editar" method="POST">
+                  <form action="/eventos/editar" method="POST" class="d-inline-block">
                     <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
                     <button type="submit" class="btn btn-primary">Editar</button>
+                  </form>
+                  <form action="/eventos/deletar" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                    <button type="submit" class="btn btn-danger">Deletar</button>
                   </form>
                 </div>
                 

@@ -114,6 +114,28 @@ class EventosController extends Action {
 		exit;
 	}
 
+	public function DeletarEventos() {
+        $eventosModel = Container::getModel('Eventos');
+
+			// Se só veio o id_evento via POST, mostra formulário
+			if (isset($_POST['id_evento']) && !isset($_POST['nome'])) {
+				$id_evento = $_POST['id_evento'];
+				$evento = $eventosModel->getById($id_evento);
+
+				if ($evento['id_usuario'] != $_SESSION['id_usuario']) {
+					header('Location: /eventos');
+					exit;
+				}
+
+				$this->view->evento = $evento;
+				$eventosModel->DeletarEventos($id_evento);
+				return;
+			}
+		// Se nada vier, redireciona
+		header('Location: /eventos');
+		exit;
+	}
+
 
 }
 

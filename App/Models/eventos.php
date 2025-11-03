@@ -106,7 +106,7 @@ class Eventos extends Model {
     }
 
 
-    public function excluir($id_evento) {
+    public function DeletarEventos($id_evento) {
         $query = "DELETE FROM eventos WHERE id_evento = :id_evento";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_evento', $id_evento);
