@@ -129,6 +129,7 @@ class EventosController extends Action {
 
 				$this->view->evento = $evento;
 				$eventosModel->DeletarEventos($id_evento);
+				header('Location: /eventos');
 				return;
 			}
 		// Se nada vier, redireciona
