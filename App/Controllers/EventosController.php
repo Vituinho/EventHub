@@ -137,6 +137,12 @@ class EventosController extends Action {
 		exit;
 	}
 
+	public function AntigosEventos() {
+		$antigos_eventos = Container::getModel('Eventos');
+		$this->view->eventos = $antigos_eventos->getAllAntigos();
+		$this->render('eventos_antigos');
+	}
+
 
 }
 

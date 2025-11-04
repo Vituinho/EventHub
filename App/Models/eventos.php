@@ -29,6 +29,13 @@ class Eventos extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getAllAntigos() {
+        $query = "SELECT * FROM eventos WHERE data < CURDATE() ORDER BY data DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function getById($id_evento) {
         /* Antes do INNER JOIN
         $query = "SELECT * FROM eventos WHERE id_evento = :id_evento";

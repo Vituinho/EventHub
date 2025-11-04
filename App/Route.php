@@ -94,6 +94,12 @@ class Route extends Bootstrap {
 			'action' => 'MostrarDetalhes'
 		);
 
+		$routes['antigos_eventos'] = array(
+			'route' => '/eventos/antigos',
+			'controller' => 'EventosController',
+			'action' => 'AntigosEventos'
+		);
+
 		$this->setRoutes($routes);
 	}
 
