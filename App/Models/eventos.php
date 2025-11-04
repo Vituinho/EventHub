@@ -23,7 +23,7 @@ class Eventos extends Model {
     }
         
     public function getAll() {
-        $query = "SELECT * FROM eventos ORDER BY data DESC";
+        $query = "SELECT * FROM eventos WHERE data >= CURDATE() ORDER BY data ASC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
