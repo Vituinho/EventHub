@@ -85,7 +85,7 @@ class Usuario extends Model {
     }
 
     public function autenticar() {
-        $query = "SELECT id_usuario, nome, email, telefone, senha FROM usuarios WHERE email = :email";
+        $query = "SELECT id_usuario, nome, email, telefone, senha, tipo FROM usuarios WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':email', $this->__get('email'));
         $stmt->execute();
@@ -97,10 +97,27 @@ class Usuario extends Model {
             $this->__set('nome', $usuario['nome']);
             $this->__set('email', $usuario['email']);
             $this->__set('telefone', $usuario['telefone']);
+            $this->__set('tipo', $usuario['tipo']);
             return $this; // retorna o usuário autenticado
         } else {
             return false;
         }
+    }
+    
+    public function tipoUsuario() {
+        $query = "SELECT tipo FROM usuarios WHERE id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
+        $stmt->execute();
+
+        $usuario = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($usuario && !empty($usuario['tipo'])) {
+            $_SESSION['tipo'] = $usuario['tipo']; // agora o valor é real
+            return $usuario['tipo'] === 'ADMIN';
+        }
+
+        return false;
     }
 
 }
