@@ -67,10 +67,22 @@
           <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/eventos">Painel de Eventos</a></li>
           <li class="nav-item"><a class="nav-link" href="/eventos/sobre">Sobre</a></li>
+          <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'ADMIN'): ?>
+            <li class="nav-item"><a class="nav-link" href="/admin/painel">Painel Admin</a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
   </nav>
+
+  <?php if (isset($_GET['erro']) && $_GET['erro'] == 1): ?>
+      <div class="d-flex justify-content-center mb-3">
+          <div class="alert alert-danger w-50 mt-3 d-flex justify-content-center align-items-center" role="alert">
+              <i class="fas fa-exclamation-circle me-2"></i>
+              Você não tem permissão pra entrar aqui!
+          </div>
+      </div>
+  <?php endif; ?>
 
   <section class="py-5 text-center bg-light">
     <div class="container">

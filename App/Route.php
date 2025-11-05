@@ -22,6 +22,12 @@ class Route extends Bootstrap {
 			'action' => 'verificacoes'
 		);
 
+		$routes['painel_admin'] = array(
+			'route' => '/admin/painel',
+			'controller' => 'LoginController',
+			'action' => 'PainelAdmin'
+		);
+
 		/*Parte de login*/
 
 		$routes['login'] = array(
