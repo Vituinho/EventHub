@@ -21,6 +21,13 @@ class Eventos extends Model {
     public function __set($atributo, $valor) {
         $this->$atributo = $valor;
     }
+
+    public function getTudoMesmo() {
+        $query = "SELECT * FROM eventos ORDER BY data ASC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
         
     public function getAll() {
         $query = "SELECT * FROM eventos WHERE data >= CURDATE() ORDER BY data ASC";
