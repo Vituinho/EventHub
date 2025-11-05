@@ -67,6 +67,20 @@ class LoginController extends Action {
 
 	}
 
+	public function PainelAdmin() {
+		require_once __DIR__ . '/../Auth.php';
+		requireTipo();
+
+		$painelAdmin = Container::getModel('Usuario');
+		$eventos = Container::getModel('Eventos');
+		$painelAdmin->__set('id_usuario', $_SESSION['id_usuario']);
+
+		$this->view->usuario = $painelAdmin->getAll();
+		$this->view->eventos = $eventos->getTudoMesmo();
+
+		$this->render('painel_admin');
+	}
+
 	public function autenticar() {
 		session_start();
 
@@ -81,6 +95,7 @@ class LoginController extends Action {
             $_SESSION['nome'] = $usuario_autenticado->__get('nome');
             $_SESSION['email'] = $usuario_autenticado->__get('email');
 			$_SESSION['telefone'] = $usuario_autenticado->__get('telefone');
+			$_SESSION['tipo'] = $usuario_autenticado->__get('tipo');
 
             header('Location: /home');
         } else {
