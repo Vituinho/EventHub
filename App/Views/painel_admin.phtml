@@ -125,7 +125,40 @@
               </div>
             </div>
 
-            
+            <div class="col-md-12 mt-5">
+                <h2 class="mb-4">Todos os Usuarios</h2>
+                  <div class="g-4">
+                    <div class="col table-responsive">
+                      <table class="table table-striped-columns"> 
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NOME</th>
+                                <th>EMAIL</th>
+                                <th>TELEFONE</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($this->view->usuario as $usuario): ?>
+                              <tr>
+                                  <td><?=$usuario['id_usuario']?></td>
+                                  <td><?=$usuario['nome']?></td>
+                                  <td><?=$usuario['email']?></td>
+                                  <td><?=$usuario['telefone']?></td>
+                                  <td>
+                                      <a class="btn btn-danger mb-1" href="">Excluir</a>
+                                      <a class="btn btn-primary" href="">Editar</a>
+                                  </td>
+                              </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
         </div>
         
     </form>
