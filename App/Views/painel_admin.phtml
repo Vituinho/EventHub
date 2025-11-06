@@ -82,7 +82,7 @@
   <section class="py-5 text-center bg-light">
     <div class="container">
       <h1 class="display-4">Painel do Administrador</h1>
-      <p class="lead">Cadastre, edite, exclua e visualize todos os eventos de forma rápida e prática.</p>
+      <p class="lead">Painel completo para controle total da plataforma: organize, supervisione e mantenha tudo funcionando perfeitamente.</p>
       <a href="/eventos/cadastro" class="btn btn-primary btn-lg">Cadastrar Evento</a>
     </div>
   </section>
@@ -90,42 +90,44 @@
   <section class="py-5">
     <form action="/eventos/detalhes/" method="POST">
       <div class="container">
-        <h2 class="mb-4">Todos os Eventos</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row">
+            <div class="col-md-12">
+              <h2 class="mb-4">Todos os Eventos</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
 
-        <?php foreach($this->view->eventos as $evento): ?>
+                <?php foreach($this->view->eventos as $evento): ?>
 
-          <div class="col">
-            <div class="card h-100">
-              <img src="/<?= $evento['imagem'] ?>" class="card-img-top" alt="Imagem">
-              <div class="card-body">
-                <h5 class="card-title"><?= $evento['nome'] ?></h5>
-                <p class="card-text">Data: <?= $evento['data'] ?></p>
-                <p class="card-text">Local: <?= $evento['local'] ?></p>
-                <div>
-                  <form action="/eventos/detalhes/" method="POST" class="d-inline-block">
-                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
-                    <button type="submit" class="btn btn-success">Detalhes</button>
-                  </form>
-                  <form action="/eventos/editar" method="POST" class="d-inline-block">
-                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                  </form>
-                  <form action="/eventos/deletar" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
-                    <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
-                    <button type="submit" class="btn btn-danger">Deletar</button>
-                  </form>
-                </div>
-                
-
+                  <div class="col">
+                    <div class="card h-100">
+                      <img src="/<?= $evento['imagem'] ?>" class="card-img-top" alt="Imagem">
+                      <div class="card-body">
+                        <h5 class="card-title"><?= $evento['nome'] ?></h5>
+                        <p class="card-text">Data: <?= $evento['data'] ?></p>
+                        <p class="card-text">Local: <?= $evento['local'] ?></p>
+                        <div>
+                          <form action="/eventos/detalhes/" method="POST" class="d-inline-block">
+                            <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                            <button type="submit" class="btn btn-success">Detalhes</button>
+                          </form>
+                          <form action="/eventos/editar" method="POST" class="d-inline-block">
+                            <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                          </form>
+                          <form action="/eventos/deletar" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                            <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
+                            <button type="submit" class="btn btn-danger">Deletar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
               </div>
             </div>
-          </div>
 
-          <?php endforeach; ?>
-
+            
         </div>
-      </div>
+        
     </form>
   </section>
 
