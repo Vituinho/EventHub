@@ -101,7 +101,7 @@ class Eventos extends Model {
             UPDATE eventos
             SET nome = :nome, data = :data, local = :local, detalhes = :detalhes" 
             . ($imagem ? ", imagem = :imagem" : "") . "
-            WHERE id_evento = :id_evento AND id_usuario = :id_usuario
+            WHERE id_evento = :id_evento
         ";
 
         $stmt = $this->db->prepare($query);
@@ -110,7 +110,6 @@ class Eventos extends Model {
         $stmt->bindValue(':data', $this->__get('data'));
         $stmt->bindValue(':local', $this->__get('local'));
         $stmt->bindValue(':detalhes', $this->__get('detalhes'));
-        $stmt->bindValue(':id_usuario', $this->__get('id_usuario'), \PDO::PARAM_INT);
 
         if ($imagem) {
             $stmt->bindValue(':imagem', $imagem);
