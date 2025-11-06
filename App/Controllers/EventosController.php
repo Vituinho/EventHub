@@ -75,7 +75,7 @@ class EventosController extends Action {
             $id_evento = $_POST['id_evento'];
             $evento = $eventosModel->getById($id_evento);
 
-            if ($evento['id_usuario'] != $_SESSION['id_usuario']) {
+            if ($evento['id_usuario'] != $_SESSION['id_usuario'] && $_SESSION['tipo'] != 'ADMIN') {
                 header('Location: /eventos');
                 exit;
             }
@@ -90,23 +90,39 @@ class EventosController extends Action {
             $id_evento = $_POST['id_evento'];
 
             $eventoAtual = $eventosModel->getById($id_evento);
-            if ($eventoAtual['id_usuario'] != $_SESSION['id_usuario']) {
+            if ($eventoAtual['id_usuario'] != $_SESSION['id_usuario'] && $_SESSION['tipo'] != 'ADMIN') {
                 header('Location: /eventos');
                 exit;
             }
 
-            $eventosModel->__set('id_evento', $id_evento);
-            $eventosModel->__set('nome', $_POST['nome']);
-            $eventosModel->__set('data', $_POST['data']);
-            $eventosModel->__set('local', $_POST['local']);
-            $eventosModel->__set('detalhes', $_POST['detalhes']);
-            $eventosModel->__set('id_usuario', $_SESSION['id_usuario']);
-            $eventosModel->__set('imagem', $eventoAtual['imagem']); // mantém imagem antiga se não enviar nova
+			if ($_SESSION['tipo'] === 'ADMIN') {
+				$eventosModel->__set('id_evento', $id_evento);
+				$eventosModel->__set('nome', $_POST['nome']);
+				$eventosModel->__set('data', $_POST['data']);
+				$eventosModel->__set('local', $_POST['local']);
+				$eventosModel->__set('detalhes', $_POST['detalhes']);
+				$eventosModel->__set('id_usuario', $eventoAtual['id_usuario']);
+				$eventosModel->__set('imagem', $eventoAtual['imagem']); // mantém imagem antiga se não enviar nova
 
-            $eventosModel->atualizar();
+				$eventosModel->atualizar();
 
-            header('Location: /eventos');
-            exit;
+				header('Location: /admin/painel');
+				exit;
+			} else {
+				$eventosModel->__set('id_evento', $id_evento);
+				$eventosModel->__set('nome', $_POST['nome']);
+				$eventosModel->__set('data', $_POST['data']);
+				$eventosModel->__set('local', $_POST['local']);
+				$eventosModel->__set('detalhes', $_POST['detalhes']);
+				$eventosModel->__set('id_usuario', $_SESSION['id_usuario']);
+				$eventosModel->__set('imagem', $eventoAtual['imagem']); // mantém imagem antiga se não enviar nova
+
+				$eventosModel->atualizar();
+
+				header('Location: /eventos');
+				exit;
+			}
+
         }
 
 		// Se nada vier, redireciona
@@ -119,18 +135,25 @@ class EventosController extends Action {
 
 			// Se só veio o id_evento via POST, mostra formulário
 			if (isset($_POST['id_evento']) && !isset($_POST['nome'])) {
+
 				$id_evento = $_POST['id_evento'];
 				$evento = $eventosModel->getById($id_evento);
 
-				if ($evento['id_usuario'] != $_SESSION['id_usuario']) {
+				if ($evento['id_usuario'] != $_SESSION['id_usuario'] && $_SESSION['tipo'] != 'ADMIN') {
 					header('Location: /eventos');
 					exit;
 				}
 
 				$this->view->evento = $evento;
 				$eventosModel->DeletarEventos($id_evento);
-				header('Location: /eventos');
-				return;
+
+				if ($_SESSION['tipo'] === 'ADMIN') {
+					header('Location: /admin/painel');
+					return;
+				} else {
+					header('Location: /eventos');
+					return;
+				}
 			}
 		// Se nada vier, redireciona
 		header('Location: /eventos');
