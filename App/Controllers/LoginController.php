@@ -102,14 +102,125 @@ class LoginController extends Action {
             header('Location: /?erro=1');
         }
 
-		
     }
+
+	public function EditarUsuario() {
+		
+		session_start();
+
+        $usuarioModel = Container::getModel('Usuario');
+
+        if (isset($_POST['id_usuario']) && !isset($_POST['email'])) {
+            $id_usuario = $_POST['id_usuario'];
+            $usuario = $usuarioModel->getById($id_usuario);
+
+			
+            if ($usuario['id_usuario'] != $id_usuario && $_SESSION['tipo'] != 'ADMIN') {
+                header('Location: /home');
+                exit;
+            }
+
+            $this->view->usuario = $usuario;
+            $this->render('editar_usuario');
+            return;
+        }
+
+		
+
+        // Se veio formulário de edição completo, atualiza
+        if (isset($_POST['id_usuario'], $_POST['nome'], $_POST['email'], $_POST['telefone'], $_POST['tipo'])) {
+            $id_usuario = $_POST['id_usuario'];
+
+            $usuarioAtual = $usuarioModel->getById($id_usuario);
+            if ($usuarioAtual['id_usuario'] != $id_usuario && $_SESSION['tipo'] != 'ADMIN') {
+                header('Location: /home');
+                exit;
+            }
+
+			if ($_SESSION['tipo'] === 'ADMIN') {
+				$usuarioModel->__set('nome', $_POST['nome']);
+				$usuarioModel->__set('email', $_POST['email']);
+				$usuarioModel->__set('telefone', $_POST['telefone']);
+				
+				if (!empty($_POST['senha'])) {
+					$novaSenha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+					$usuarioModel->__set('senha', $novaSenha);
+				} else {
+					// mantém hash antiga
+					$usuarioModel->__set('senha', $usuarioAtual['senha']);
+				}
+
+				$usuarioModel->__set('tipo', $_POST['tipo']);
+				$usuarioModel->__set('id_usuario', $usuarioAtual['id_usuario']);
+
+				$usuarioModel->atualizar();
+
+				header('Location: /admin/painel');
+				exit;
+			} else {
+				$usuarioModel->__set('nome', $_POST['nome']);
+				$usuarioModel->__set('email', $_POST['email']);
+				$usuarioModel->__set('telefone', $_POST['telefone']);
+				
+				if (!empty($_POST['senha'])) {
+					$novaSenha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+					$usuarioModel->__set('senha', $novaSenha);
+				} else {
+					// mantém hash antiga
+					$usuarioModel->__set('senha', $usuarioAtual['senha']);
+				}
+
+
+				$usuarioModel->__set('id_usuario', $_SESSION['id_usuario']);
+
+				$usuarioModel->atualizar();
+
+				header('Location: /home');
+				exit;
+			}
+
+        }
+
+		// Se nada vier, redireciona
+		header('Location: /home');
+		exit;
+	}
+
+	public function DeletarUsuario() {
+        $usuarioModel = Container::getModel('Eventos');
+
+			// Se só veio o id_evento via POST, mostra formulário
+			if (isset($_POST['id_usuario']) && !isset($_POST['nome'])) {
+
+				$id_usuario = $_POST['id_usuario'];
+				$usuario = $usuarioModel->getById($id_usuario);
+
+				if ($usuario['id_usuario'] != $_SESSION['id_usuario'] && $_SESSION['tipo'] != 'ADMIN') {
+					header('Location: /home');
+					exit;
+				}
+
+				$this->view->usuario = $usuario;
+				$usuarioModel->DeletarUsuario($id_usuario);
+
+				if ($_SESSION['tipo'] === 'ADMIN') {
+					header('Location: /admin/painel');
+					return;
+				} else {
+					header('Location: /home');
+					return;
+				}
+			}
+		// Se nada vier, redireciona
+		header('Location: /home');
+		exit;
+	}
 
 	public function sobre() {
 		$this->render('sobre');
 	}
 
-	public function logout() {
+	public function Logout() {
         session_start();
         session_destroy();
         header('Location: /');
