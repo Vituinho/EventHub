@@ -128,6 +128,25 @@ class Usuario extends Model {
         $stmt->execute();
     }
 
+    public function ConfigurarCascade() {
+
+        // 1 — Remover FK antiga
+        $query1 = "ALTER TABLE eventos DROP FOREIGN KEY eventos_ibfk_1;";
+        $this->db->exec($query1);
+
+        // 2 — Criar FK nova com CASCADE
+        $query2 = "
+            ALTER TABLE eventos
+            ADD CONSTRAINT eventos_ibfk_1
+            FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE;
+        ";
+        $this->db->exec($query2);
+    }
+
+
+
 }
 
 ?>
