@@ -28,6 +28,18 @@ class Route extends Bootstrap {
 			'action' => 'PainelAdmin'
 		);
 
+		$routes['excluir_usuario'] = array(
+			'route' => '/usuario/excluir',
+			'controller' => 'LoginController',
+			'action' => 'ExcluirUsuario'
+		);
+
+		$routes['editar_usuario'] = array(
+			'route' => '/usuario/editar',
+			'controller' => 'LoginController',
+			'action' => 'EditarUsuario'
+		);
+
 		/*Parte de login*/
 
 		$routes['login'] = array(
@@ -46,6 +58,12 @@ class Route extends Bootstrap {
 			'route' => '/login/autenticar',
 			'controller' => 'LoginController',
 			'action' => 'autenticar'
+		);
+
+		$routes['logout'] = array(
+			'route' => '/login/logout',
+			'controller' => 'LoginController',
+			'action' => 'Logout'
 		);
 
 		/*Parte da home*/
