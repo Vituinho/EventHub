@@ -35,13 +35,14 @@ class Usuario extends Model {
     }
 
     public function atualizar() {
-        $query = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha WHERE id_usuario = :id_usuario";
+        $query = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha, tipo = :tipo WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
         $stmt->bindValue(':nome', $this->__get('nome'));
         $stmt->bindValue(':email', $this->__get('email'));
         $stmt->bindValue(':telefone', $this->__get('telefone'));
         $stmt->bindValue(':senha', $this->__get('senha'));
+        $stmt->bindValue(':tipo', $this->__get('tipo'));
         $stmt->execute();
     }
 
@@ -118,6 +119,13 @@ class Usuario extends Model {
         }
 
         return false;
+    }
+
+    public function DeletarUsuario($id_usuario) {
+        $query = "DELETE FROM usuarios WHERE id_usuario = :id_usuario";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id_usuario', $id_usuario);
+        $stmt->execute();
     }
 
 }
