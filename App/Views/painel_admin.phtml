@@ -152,7 +152,7 @@
                                       <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
                                       <button type="submit" class="btn btn-primary">Editar</button>
                                     </form>
-                                    <form action="/usuario/excluir" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                                    <form action="/usuario/excluir" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário? você também vai excluir os eventos dele')">
                                       <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
                                       <button type="submit" class="btn btn-danger">Deletar</button>
                                     </form>

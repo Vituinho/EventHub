@@ -186,8 +186,12 @@ class LoginController extends Action {
 		exit;
 	}
 
-	public function DeletarUsuario() {
-        $usuarioModel = Container::getModel('Eventos');
+	public function ExcluirUsuario() {
+
+		session_start();
+
+        $usuarioModel = Container::getModel('Usuario');
+		$usuarioModel->ConfigurarCascade();
 
 			// Se só veio o id_evento via POST, mostra formulário
 			if (isset($_POST['id_usuario']) && !isset($_POST['nome'])) {
