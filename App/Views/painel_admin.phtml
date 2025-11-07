@@ -74,6 +74,7 @@
           <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'ADMIN'): ?>
             <li class="nav-item"><a class="nav-link active" href="#">Painel Admin</a></li>
           <?php endif; ?>
+          <li class="nav-item"><a class="nav-link" href="/login/logout">Sair</a></li>
         </ul>
       </div>
     </div>
@@ -113,7 +114,7 @@
                             <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
                             <button type="submit" class="btn btn-primary">Editar</button>
                           </form>
-                          <form action="/eventos/deletar" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                          <form action="/eventos/deletar" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este evento?')">
                             <input type="hidden" name="id_evento" value="<?= $evento['id_evento'] ?>">
                             <button type="submit" class="btn btn-danger">Deletar</button>
                           </form>
@@ -147,8 +148,14 @@
                                   <td><?=$usuario['email']?></td>
                                   <td><?=$usuario['telefone']?></td>
                                   <td>
-                                      <a class="btn btn-danger mb-1" href="">Excluir</a>
-                                      <a class="btn btn-primary" href="">Editar</a>
+                                     <form action="/usuario/editar" method="POST" class="d-inline-block">
+                                      <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                                      <button type="submit" class="btn btn-primary">Editar</button>
+                                    </form>
+                                    <form action="/usuario/excluir" method="POST" class="d-inline-block" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+                                      <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                                      <button type="submit" class="btn btn-danger">Deletar</button>
+                                    </form>
                                   </td>
                               </tr>
                             <?php endforeach; ?>
