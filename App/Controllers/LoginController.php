@@ -220,6 +220,15 @@ class LoginController extends Action {
 		exit;
 	}
 
+	public function PerfilUsuario() {
+		session_start();
+		$usuario = Container::getModel('Usuario');
+		$id_usuario = $_SESSION['id_usuario'];
+
+		$this->view->usuario = $usuario->getById($id_usuario);
+		$this->render('perfil_usuario');
+	}
+
 	public function sobre() {
 		$this->render('sobre');
 	}
