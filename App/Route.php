@@ -28,6 +28,12 @@ class Route extends Bootstrap {
 			'action' => 'PainelAdmin'
 		);
 
+		$routes['perfil_usuario'] = array(
+			'route' => '/usuario/perfil',
+			'controller' => 'LoginController',
+			'action' => 'PerfilUsuario'
+		);
+
 		$routes['excluir_usuario'] = array(
 			'route' => '/usuario/excluir',
 			'controller' => 'LoginController',
