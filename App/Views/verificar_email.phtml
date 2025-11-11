@@ -1,0 +1,65 @@
+<?php
+    require_once '../App/Auth.php';
+    requireLogin();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $userId = $_POST['user_id'];
+        $code = $_POST['code'];
+
+        $stmt = $db->prepare("
+            SELECT * FROM user_2fa
+            WHERE user_id=? AND code=? AND used=0 AND expires_at > NOW()
+            ORDER BY id DESC LIMIT 1
+        ");
+        $stmt->execute([$userId, $code]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($data) {
+            // marcar como usado
+            $upd = $db->prepare("UPDATE user_2fa SET used=1 WHERE id=?");
+            $upd->execute([$data['id']]);
+
+            // autenticar usuário
+            $_SESSION['user_id'] = $userId;
+
+            header("Location: /painel.php");
+            exit;
+        } else {
+            $erro = "Código inválido ou expirado.";
+        }
+    }
+
+?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de E-mail - EventHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+<div class="card shadow p-4" style="width: 100%; max-width: 500px;">
+    <h4 class="mb-3">Verificação de E-mail</h4>
+    <p class="text-muted">Digite o código enviado ao seu e-mail para continuar.</p>
+
+    <form method="POST" action="/verificar-2fa.php">
+        <input type="hidden" name="user_id" value="<?= htmlspecialchars($_GET['u'] ?? '') ?>">
+
+        <div class="mb-3">
+            <label class="form-label" for="code">Código de verificação</label>
+            <input type="text" id="code" name="code" maxlength="6" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Verificar</button>
+
+        <?php if (!empty($erro)): ?>
+            <div class="alert alert-danger mt-3"><?= htmlspecialchars($erro) ?></div>
+        <?php endif; ?>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
