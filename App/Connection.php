@@ -44,6 +44,16 @@ class Connection {
                 FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
             )");
 
+            // Cria a tabela user_f2a se não existir
+            $conn->exec("CREATE TABLE IF NOT EXISTS user_2fa (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                code VARCHAR(10) NOT NULL,
+                expires_at DATETIME NOT NULL,
+                used TINYINT(1) DEFAULT 0,
+                FOREIGN KEY (user_id) REFERENCES usuarios(id_usuario)
+            );");
+
             return $conn;
 
         } catch (PDOException $e) {
