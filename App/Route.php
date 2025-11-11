@@ -22,11 +22,28 @@ class Route extends Bootstrap {
 			'action' => 'verificacoes'
 		);
 
+		$routes['verificar_email'] = [
+			'route' => '/verificar/email',
+			'controller' => 'LoginController',
+			'action' => 'VerificarEmail'
+		];
+
+		$routes['processar_2fa'] = [
+			'route' => '/verificar/processar',
+			'controller' => 'LoginController',
+			'action' => 'Processar2FA'
+		];
+
+
+		/* Admin */
+
 		$routes['painel_admin'] = array(
 			'route' => '/admin/painel',
 			'controller' => 'LoginController',
 			'action' => 'PainelAdmin'
 		);
+
+		/* Ações Admin/Usuario */
 
 		$routes['perfil_usuario'] = array(
 			'route' => '/usuario/perfil',
