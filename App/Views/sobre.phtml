@@ -13,9 +13,11 @@
 </head>
 <body>
 
- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+ <!-- Navbar EventHub -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-      <a class="navbar-brand" href="/eventos">🎉 EventHub</a>
+      <a class="navbar-brand" href="#">🎉 EventHub</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -23,11 +25,44 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="/eventos">Painel de Eventos</a></li>
-          <li class="nav-item"><a class="nav-link active" href="#">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/eventos/sobre">Sobre</a></li>
           <?php if (isset($_SESSION['tipo']) && $_SESSION['tipo'] == 'ADMIN'): ?>
             <li class="nav-item"><a class="nav-link" href="/admin/painel">Painel Admin</a></li>
           <?php endif; ?>
-          <li class="nav-item"><a class="nav-link" href="/login/logout">Sair</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                Perfil
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <!-- Editar -->
+                    
+                    <form id="formEditarPerfil" action="/usuario/editar" method="POST" style="display:none;">
+                        <input type="hidden" name="id_usuario" value="<?= $_SESSION['id_usuario'] ?>">
+                    </form>
+
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="document.getElementById('formEditarPerfil').submit();">
+                            Editar Perfil
+                        </a>
+                    </li>
+
+                    <!-- Deletar -->
+
+                    <form id="formExcluirPerfil" action="/usuario/excluir" method="POST" style="display:none;" onclick="return confirm('Tem certeza que deseja excluir este usuário? você também vai excluir os eventos dele.')">
+                        <input type="hidden" name="id_usuario" value="<?= $_SESSION['id_usuario'] ?>">
+                    </form>
+
+                    <li>
+                        <a class="dropdown-item" href="#" onclick="if (confirm('Tem certeza que deseja excluir sua conta? Isso também excluirá seus eventos.')) { document.getElementById('formExcluirPerfil').submit(); } return false;">
+                            Excluir Usuario
+                        </a>
+                    </li>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="/login/logout">Sair</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
