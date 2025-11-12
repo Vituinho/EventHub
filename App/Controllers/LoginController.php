@@ -89,37 +89,58 @@ class LoginController extends Action {
             $id = $usuario_autenticado->__get('id_usuario');
             $email = $usuario_autenticado->__get('email');
 
+            // 🔹 Gera código 2FA e salva
             $codigo = rand(100000, 999999);
             $expira = date('Y-m-d H:i:s', time() + 300);
 
             $db = Container::getModel('TwoFA');
             $db->salvarCodigo($id, $codigo, $expira);
 
+            // 🔹 Importa PHPMailer
             require_once __DIR__ . '/../PHPMailer/PHPMailer.php';
-			require_once __DIR__ . '/../PHPMailer/SMTP.php';
-			require_once __DIR__ . '/../PHPMailer/Exception.php';
+            require_once __DIR__ . '/../PHPMailer/SMTP.php';
+            require_once __DIR__ . '/../PHPMailer/Exception.php';
 
-            $mail = new \PHPMailer\PHPMailer\PHPMailer();
-            $mail->isSMTP();
-            $mail->Host = getenv('SMTP_HOST');
-            $mail->SMTPAuth = true;
-            $mail->Username = getenv('SMTP_USER');
-            $mail->Password = getenv('SMTP_PASS');
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom(getenv('SMTP_USER'), 'EventHub');
-            $mail->addAddress($email);
-            $mail->Subject = 'Código de Verificação - EventHub';
-            $mail->Body = "Seu código de verificação é: $codigo";
-            $mail->send();
-
-            header("Location: /verificar/email?u=$id");
+            echo 'SMTP_USER: ' . getenv('SMTP_USER');
             exit;
+
+            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->Host = getenv('SMTP_HOST');
+                $mail->SMTPAuth = true;
+                $mail->Username = getenv('SMTP_USER');
+                $mail->Password = getenv('SMTP_PASS');
+                $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // ⚙️ Debug pra ver se o envio tá acontecendo
+                $mail->SMTPDebug = 2;
+                $mail->Debugoutput = 'html';
+
+                $mail->setFrom(getenv('SMTP_USER'), 'EventHub');
+                $mail->addAddress($email);
+                $mail->Subject = 'Código de Verificação - EventHub';
+                $mail->Body = "Seu código de verificação é: $codigo";
+
+                $mail->send();
+
+                $_SESSION['2fa_user_id'] = $id;
+                header("Location: /verificar/email");
+                exit;
+
+            } catch (\PHPMailer\PHPMailer\Exception $e) {
+                // 🔹 Mostra o erro real (sem travar o sistema)
+                echo "<h3>❌ Erro ao enviar e-mail:</h3>";
+                echo "<pre>" . $mail->ErrorInfo . "</pre>";
+                exit;
+            }
         }
 
         header('Location: /?erro=1');
     }
+
 
     public function EditarUsuario() {
         session_start();
@@ -226,8 +247,8 @@ class LoginController extends Action {
     public function Processar2FA() {
         session_start();
 
-        $user_id = $_POST['user_id'];
-        $code = $_POST['code'];
+        $user_id = $_SESSION['2fa_user_id'];
+        $code = isset($_POST['code']) ? trim($_POST['code']) : '';
 
         $db = Container::getModel('TwoFA');
         $valido = $db->validarCodigo($user_id, $code);
@@ -248,7 +269,7 @@ class LoginController extends Action {
             exit;
         }
 
-        header("Location: /verificar/email?u=$user_id&erro=1");
+        header("Location: /verificar/email?erro=1");
     }
 
     public function Logout() {
