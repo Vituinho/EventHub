@@ -75,6 +75,8 @@ class LoginController extends Action {
         $this->render('painel_admin');
     }
 
+    
+
     public function autenticar() {
         session_start();
 
@@ -96,13 +98,12 @@ class LoginController extends Action {
             $db = Container::getModel('TwoFA');
             $db->salvarCodigo($id, $codigo, $expira);
 
-            // 🔹 Importa PHPMailer
+            // 🔹 Importa PHPMailer manualmente
             require_once __DIR__ . '/../PHPMailer/PHPMailer.php';
             require_once __DIR__ . '/../PHPMailer/SMTP.php';
             require_once __DIR__ . '/../PHPMailer/Exception.php';
 
-            echo 'SMTP_USER: ' . getenv('SMTP_USER');
-            exit;
+            // 🔹 (Não precisa mais chamar carregarEnv aqui!)
 
             $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
@@ -131,7 +132,6 @@ class LoginController extends Action {
                 exit;
 
             } catch (\PHPMailer\PHPMailer\Exception $e) {
-                // 🔹 Mostra o erro real (sem travar o sistema)
                 echo "<h3>❌ Erro ao enviar e-mail:</h3>";
                 echo "<pre>" . $mail->ErrorInfo . "</pre>";
                 exit;
