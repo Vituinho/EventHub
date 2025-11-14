@@ -80,6 +80,7 @@ class Eventos extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+
     public function atualizar() {
         $imagem = $this->__get('imagem');
 
@@ -157,8 +158,6 @@ class Eventos extends Model {
         $stmt->bindValue(':id_usuario', $this->__get('id_usuario'));
 
         $stmt->execute();
-
-    return $this;
     }
 
 }

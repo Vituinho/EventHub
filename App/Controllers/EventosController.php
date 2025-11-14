@@ -31,10 +31,10 @@ class EventosController extends Action {
 		$this->view->eventos = $cadastro_eventos->salvar();
 
 		$this->view->eventos = $cadastro_eventos->getAll();
-		$this->render('cadastro_eventos');
 
-		header('Location: /home');
+		header('Location: /eventos');
 		exit;
+		
 	}
 
 	public function MostrarDetalhes() {
