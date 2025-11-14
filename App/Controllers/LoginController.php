@@ -91,23 +91,22 @@ class LoginController extends Action {
             $id = $usuario_autenticado->__get('id_usuario');
             $email = $usuario_autenticado->__get('email');
 
-            // 🔹 Gera código 2FA e salva
+            // Gera código 2FA e salva
             $codigo = rand(100000, 999999);
             $expira = date('Y-m-d H:i:s', time() + 300);
 
             $db = Container::getModel('TwoFA');
             $db->salvarCodigo($id, $codigo, $expira);
 
-            // 🔹 Importa PHPMailer manualmente
+            // Importa PHPMailer manualmente
             require_once __DIR__ . '/../PHPMailer/PHPMailer.php';
             require_once __DIR__ . '/../PHPMailer/SMTP.php';
             require_once __DIR__ . '/../PHPMailer/Exception.php';
 
-            // 🔹 (Não precisa mais chamar carregarEnv aqui!)
-
             $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
             try {
+                // Configuração SMTP
                 $mail->isSMTP();
                 $mail->Host = getenv('SMTP_HOST');
                 $mail->SMTPAuth = true;
@@ -116,15 +115,29 @@ class LoginController extends Action {
                 $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                // ⚙️ Debug pra ver se o envio tá acontecendo
-                $mail->SMTPDebug = 2;
-                $mail->Debugoutput = 'html';
+                // Correção essencial da codificação!
+                $mail->CharSet = 'UTF-8';
+                $mail->Encoding = 'base64';
 
+                // Debug opcional
+                // $mail->SMTPDebug = 2;
+                // $mail->Debugoutput = 'html';
+
+                // Remetente e destino
                 $mail->setFrom(getenv('SMTP_USER'), 'EventHub');
                 $mail->addAddress($email);
-                $mail->Subject = 'Código de Verificação - EventHub';
-                $mail->Body = "Seu código de verificação é: $codigo";
 
+                // Assunto e corpo
+                $mail->Subject = 'Código de Verificação - EventHub';
+                $mail->Body = "
+                    <h2>Seu código de verificação</h2>
+                    <p>Olá! Aqui está o seu código para entrar no EventHub:</p>
+                    <h1><strong>$codigo</strong></h1>
+                    <p>Ele expira em <strong>5 minutos</strong>.</p>
+                ";
+                $mail->isHTML(true);
+
+                // Envia
                 $mail->send();
 
                 $_SESSION['2fa_user_id'] = $id;
@@ -140,6 +153,7 @@ class LoginController extends Action {
 
         header('Location: /?erro=1');
     }
+
 
 
     public function EditarUsuario() {

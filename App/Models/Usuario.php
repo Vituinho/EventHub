@@ -122,11 +122,19 @@ class Usuario extends Model {
     }
 
     public function DeletarUsuario($id_usuario) {
+        // 1. Deleta primeiro os registros dependentes (tabela user_2fa)
+        $query2fa = "DELETE FROM user_2fa WHERE user_id = :id_usuario";
+        $stmt2fa = $this->db->prepare($query2fa);
+        $stmt2fa->bindValue(':id_usuario', $id_usuario);
+        $stmt2fa->execute();
+
+        // 2. Agora apaga o usuário
         $query = "DELETE FROM usuarios WHERE id_usuario = :id_usuario";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_usuario', $id_usuario);
         $stmt->execute();
     }
+
 
     public function ConfigurarCascade() {
 
